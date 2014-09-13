@@ -48,6 +48,7 @@
                                                                            action:NULL];
     
     [toolbar setItems:[NSArray arrayWithObjects:cancelItem, space, title, space, addItem, nil]];
+    toolbar.tintColor = [UIColor blackColor];
     [self.view addSubview:toolbar];
     
     self.titleTextView = [[UITextField alloc] initWithFrame:CGRectMake(50, 50, self.view.frame.size.width - 100, 50)];
