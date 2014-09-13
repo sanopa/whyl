@@ -8,6 +8,10 @@
 
 #import "YOHMainViewController.h"
 
+#import "YOHAddViewController.h"
+#import "YOHHistoryViewController.h"
+#import "YOHLearnViewController.h"
+
 #import <Parse/Parse.h>
 
 @interface YOHMainViewController ()
@@ -33,6 +37,7 @@
                 }
             }];
         }
+        self.navigationController.delegate = self;
         
     }
     return self;
@@ -51,21 +56,25 @@
     self.addButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
     [self.addButton setTitle:@"Add" forState:UIControlStateNormal];
     self.addButton.backgroundColor = [UIColor blackColor];
+    [self.addButton addTarget:self action:@selector(addButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.addButton];
     
     self.historyButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 200, 100, 100)];
     [self.historyButton setTitle:@"History" forState:UIControlStateNormal];
     self.historyButton.backgroundColor = [UIColor blackColor];
+    [self.historyButton addTarget:self action:@selector(historyButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.historyButton];
     
     self.redditButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 300, 100, 100)];
     [self.redditButton setTitle:@"learn" forState:UIControlStateNormal];
     self.redditButton.backgroundColor = [UIColor blackColor];
+    [self.redditButton addTarget:self action:@selector(redditButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.redditButton];
     
     self.settingsButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 400, 100, 100)];
     [self.settingsButton setTitle:@"Settings" forState:UIControlStateNormal];
     self.settingsButton.backgroundColor = [UIColor blackColor];
+    [self.settingsButton addTarget:self action:@selector(settingsButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.settingsButton];
     
     PFUser *currentUser = [PFUser currentUser];
@@ -103,9 +112,31 @@
     
 }
 
-- (void)createUserOnParse:(NSString *)UUID
+#pragma mark - Dealing with Buttons
+- (void)addButtonPressed:(UIButton *)button
 {
-    
+    UIViewController *addViewController = [[YOHAddViewController alloc] init];
+    self.navigationController.navigationBarHidden = false;
+    [self.navigationController pushViewController:addViewController animated:YES];
+}
+
+- (void)historyButtonPressed:(UIButton *)button
+{
+    UIViewController *historyViewController = [[YOHHistoryViewController alloc] init];
+    self.navigationController.navigationBarHidden = false;
+    [self.navigationController pushViewController:historyViewController animated:YES];
+}
+
+- (void)redditButtonPressed:(UIButton *)button
+{
+    UIViewController *redditViewController = [[YOHLearnViewController alloc] init];
+    self.navigationController.navigationBarHidden = false;
+    [self.navigationController pushViewController:redditViewController animated:YES];
+}
+
+- (void)settingsButtonPressed:(UIButton *)button
+{
+    NSLog(@"Settings button pressed");
 }
 
 - (void)viewDidLoad
@@ -114,21 +145,16 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = true;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
