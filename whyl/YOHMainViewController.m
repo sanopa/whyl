@@ -16,7 +16,7 @@
 #import <Parse/Parse.h>
 
 @interface YOHMainViewController () <UIAlertViewDelegate>
-@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UIImageView *titleLabel;
 @property (nonatomic, strong) UIButton *addButton;
 @property (nonatomic, strong) UIButton *historyButton;
 @property (nonatomic, strong) UIButton *redditButton;

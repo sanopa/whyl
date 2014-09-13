@@ -75,16 +75,18 @@
     // Configure the cell...
     if (indexPath.row == 0) {
         cell.textLabel.text = @"Reminders";
-        UISwitch *switchControl = [[UISwitch alloc] init];
-        switchControl.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 8 - switchControl.frame.size.width, 8, switchControl.frame.size.width, switchControl.frame.size.height);
-        [switchControl addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
-        if ([[NSUserDefaults standardUserDefaults] valueForKey:@"timeOfAlert"] == nil) {
-            switchControl.on = NO;
-        } else {
-            switchControl.on = YES;
+        if (!self.switchControl) {
+            UISwitch *switchControl = [[UISwitch alloc] init];
+            switchControl.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 8 - switchControl.frame.size.width, 8, switchControl.frame.size.width, switchControl.frame.size.height);
+            [switchControl addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
+            if (![[NSUserDefaults standardUserDefaults] valueForKey:@"timeOfAlert"]) {
+                [switchControl setOn:false animated:YES];
+            } else {
+                [switchControl setOn:true animated:YES];
+            }
+            self.switchControl = switchControl;
+            [cell.contentView addSubview:self.switchControl];
         }
-        [cell.contentView addSubview:switchControl];
-        self.switchControl = switchControl;
     } else {
         if ([cell viewWithTag:15251] == nil) {
             UIDatePicker *datePicker = [[UIDatePicker alloc] init];
@@ -116,7 +118,7 @@
 
 -(void)switchChanged:(UISwitch *)switchControl
 {
-    if (switchControl.on == YES) {
+    if (switchControl.on) {
         self.showingPicker = YES;
         [self.tableView reloadData];
     } else {
