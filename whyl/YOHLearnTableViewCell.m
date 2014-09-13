@@ -19,9 +19,11 @@
         [self.addToHistoryButton setImage:[UIImage imageNamed:@"add-main"] forState:UIControlStateNormal];
         [self addSubview:self.addToHistoryButton];
         self.addToHistoryButton.hidden = YES;
-        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(38, 8, [UIScreen mainScreen].bounds.size.width - 8 - 30 - 8 - 8, 134)];
+        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(38, 10, [UIScreen mainScreen].bounds.size.width - 8 - 30 - 8 - 8, 134)];
         self.titleLabel.textColor = [UIColor blackColor];
+        self.titleLabel.font = [UIFont fontWithName:@"Kailasa" size:16.0];
         self.titleLabel.numberOfLines = 0;
+        self.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         [self.contentView addSubview:self.titleLabel];
     }
     return self;
