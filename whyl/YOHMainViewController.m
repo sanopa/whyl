@@ -164,6 +164,10 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Receive Alerts?" message:@"Do you want to receive a reminder every day to record what you learned?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
         [alertView show];
         [[NSUserDefaults standardUserDefaults] setValue:@YES forKey:@"alertPresented"];
+    } else if (self.launchedFromNotification == TRUE) {
+        YOHAddViewController *addVc = [[YOHAddViewController alloc] init];
+        addVc.title = @"Add";
+        [self presentViewController:addVc animated:YES completion:nil];
     }
 }
 

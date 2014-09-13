@@ -10,4 +10,6 @@
 
 @interface YOHMainViewController : UIViewController
 
+@property (nonatomic) BOOL launchedFromNotification;
+
 @end

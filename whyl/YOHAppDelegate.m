@@ -11,7 +11,11 @@
 #import <Parse/Parse.h>
 
 #import "YOHMainViewController.h"
+#import "YOHAddViewController.h"
 
+@interface YOHAppDelegate () <UIAlertViewDelegate>
+
+@end
 @implementation YOHAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -21,9 +25,16 @@
     [Parse setApplicationId:@"CMSZ3FzRNmtH8SuDjQ9KIzjXEnNEcWKcwNR3gsdZ"
                   clientKey:@"n5JtzXX4bR9bhpkcb2Fw4rAfgWfHEF2sbybXSYJw"];
     
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[YOHMainViewController new]];
+    YOHMainViewController *mainvc = [YOHMainViewController new];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:mainvc];
     ((UINavigationController *)self.window.rootViewController).navigationBarHidden = true;
     ((UINavigationController *)self.window.rootViewController).navigationBar.tintColor = [UIColor blackColor];
+    
+    NSDictionary *localNotification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
+    if (localNotification) {
+        mainvc.launchedFromNotification = TRUE;
+    }
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
@@ -56,4 +67,16 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+-(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Whyl" message:@"Record what you learned today!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    YOHAddViewController *addVc = [[YOHAddViewController alloc] init];
+    addVc.title = @"Add";
+    [self.window.rootViewController presentViewController:addVc animated:YES completion:nil];
+}
 @end
