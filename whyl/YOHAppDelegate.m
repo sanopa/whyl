@@ -26,6 +26,7 @@
                   clientKey:@"n5JtzXX4bR9bhpkcb2Fw4rAfgWfHEF2sbybXSYJw"];
     
     [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"alertPresented"];
+    [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"timeOfAlert"];
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     YOHMainViewController *mainvc = [YOHMainViewController new];
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:mainvc];

@@ -27,7 +27,10 @@
     if (self) {
         // Custom initialization
         _viewed = calloc(3, sizeof(bool));
+        
         self.title = @"Learn";
+        UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(refreshData)];
+        self.navigationItem.rightBarButtonItem = refreshItem;
     }
     return self;
 }
@@ -124,6 +127,29 @@
                 NSLog(@"%@", error.localizedDescription);
             } else {
                 self.posts =  [[(NSArray *)json[@"data"][@"children"] subarrayWithRange:NSMakeRange(1, 3)] valueForKey:@"data"] ;
+                [self.tableView reloadData];
+            }
+        }
+    }];
+}
+
+- (void)refreshData
+{
+    NSString *lastID = self.posts[[self.posts count]-1][@"id"];
+    NSURLRequest *redditRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.reddit.com/r/todayilearned/hot.json?after=t3_%@&limit=3", lastID]]];
+    [NSURLConnection sendAsynchronousRequest:redditRequest queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        if (connectionError) {
+            NSLog(@"%@",connectionError.localizedDescription);
+        } else {
+            NSError* error;
+            NSDictionary* json = [NSJSONSerialization
+                                  JSONObjectWithData:data
+                                  options:kNilOptions
+                                  error:&error];
+            if (error) {
+                NSLog(@"%@", error.localizedDescription);
+            } else {
+                self.posts = [(NSArray *)json[@"data"][@"children"] valueForKey:@"data"];
                 [self.tableView reloadData];
             }
         }

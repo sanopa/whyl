@@ -254,6 +254,9 @@
         
         [[UIApplication sharedApplication] scheduleLocalNotification:notification];
         [[NSUserDefaults standardUserDefaults] setValue:@"8:00 PM" forKey:@"timeOfAlert"];
+        
+        UIAlertView *secondAlertView = [[UIAlertView alloc] initWithTitle:@"Alerts Scheduled" message:@"You will receive a reminder at 8:00PM every day unless you change the time in settings." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        [secondAlertView show];
     }
 }
 
