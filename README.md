@@ -1,6 +1,4 @@
 whyl
-by: Sophia Anopa (sanopa) & Ruoxi Tan (shangtee)
-at: HackCMU, September 12-13, 2014
 ====
   What have you learned? Whyl is an iOS app that allows you to keep track of one interesting thing you have learned each day. Inspired by Reddit, we want everybody to enjoy learning something new all the time.
 
@@ -9,3 +7,6 @@ at: HackCMU, September 12-13, 2014
   In your history of learned facts, the first thing you see on top is a random fact that you have learned some time in the past for you to rediscover. If you happen to forget the specifics of a fact that you have recorded with Whyl, you can also search for it by its title and refresh your memory.
 
   Enjoy your learning adventures!
+
+by: Sophia Anopa (sanopa) & Ruoxi Tan (shangtee)
+at: HackCMU, September 12-13, 2014
