@@ -9,6 +9,7 @@
 #import "YOHLearnViewController.h"
 #import "YOHLearnTableViewCell.h"
 #import "YOHPostViewController.h"
+#import "YOHAddViewController.h"
 
 @interface YOHLearnViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -24,18 +25,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        NSURLRequest *redditRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://www.reddit.com/r/todayilearned/hot.json?limit=4"]];
-        [NSURLConnection sendAsynchronousRequest:redditRequest queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-            NSError* error;
-            NSDictionary* json = [NSJSONSerialization
-                                  JSONObjectWithData:data
-                                  
-                                  options:kNilOptions 
-                                  error:&error];
-            self.posts =  [[(NSArray *)json[@"data"][@"children"] subarrayWithRange:NSMakeRange(1, 3)] valueForKey:@"data"] ;
-            [self.tableView reloadData];
-        }];
         _viewed = calloc(3, sizeof(bool));
+        self.title = @"Learn";
     }
     return self;
 }
@@ -67,10 +58,11 @@
 {
     YOHLearnTableViewCell *cell = [YOHLearnTableViewCell new];
     cell.titleLabel.text = self.posts[indexPath.row][@"title"];
+    cell.addToHistoryButton.tag = indexPath.row;
+    [cell.addToHistoryButton addTarget:self action:@selector(addToHistory:) forControlEvents:UIControlEventTouchUpInside];
     if (self.viewed[indexPath.row] == true) {
         cell.addToHistoryButton.hidden = NO;
     }
-    NSLog(@"%@", cell.titleLabel.text);
     return cell;
 }
 
@@ -85,13 +77,39 @@
     YOHPostViewController *postViewController = [[YOHPostViewController alloc] init];
     self.viewed[indexPath.row] = true;
     postViewController.url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.reddit.com%@",self.posts[indexPath.row][@"permalink"]]];
-    [tableView reloadData];
     [self.navigationController pushViewController:postViewController animated:YES];
+    [tableView reloadData];
+}
+
+-(void)addToHistory:(UIButton *)button
+{
+    NSInteger index = button.tag;
+    YOHAddViewController *addViewController = [[YOHAddViewController alloc] init];
+    [self.navigationController pushViewController:addViewController animated:YES];
+    
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    NSURLRequest *redditRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://www.reddit.com/r/todayilearned/hot.json?limit=4"]];
+    [NSURLConnection sendAsynchronousRequest:redditRequest queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        if (connectionError) {
+            NSLog(@"%@",connectionError.localizedDescription);
+        } else {
+            NSError* error;
+            NSDictionary* json = [NSJSONSerialization
+                                  JSONObjectWithData:data
+                                  options:kNilOptions
+                                  error:&error];
+            if (error) {
+                NSLog(@"%@", error.localizedDescription);
+            } else {
+                self.posts =  [[(NSArray *)json[@"data"][@"children"] subarrayWithRange:NSMakeRange(1, 3)] valueForKey:@"data"] ;
+                [self.tableView reloadData];
+            }
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning
