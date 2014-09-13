@@ -11,4 +11,5 @@
 @interface YOHAddViewController : UIViewController
 @property (nonatomic, strong) NSString *description;
 @property (nonatomic, strong) NSString *link;
+@property (nonatomic, strong) NSString *title;
 @end

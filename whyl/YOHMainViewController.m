@@ -116,7 +116,9 @@
 {
     UIViewController *addViewController = [[YOHAddViewController alloc] init];
     self.navigationController.navigationBarHidden = false;
-    [self.navigationController pushViewController:addViewController animated:YES];
+    [self presentViewController:addViewController
+                       animated:YES
+                     completion:NULL];
 }
 
 - (void)historyButtonPressed:(UIButton *)button

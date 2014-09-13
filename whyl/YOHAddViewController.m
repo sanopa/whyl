@@ -16,7 +16,6 @@
 @property (nonatomic, strong) UITextField *linkTextView;
 @property (nonatomic, strong) UIImageView *imageView;
 
-@property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) UIImage *image;
 @end
 
@@ -26,8 +25,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveNewItem)];
-        self.navigationItem.rightBarButtonItem = addItem;
     }
     return self;
 }
@@ -35,6 +32,16 @@
 - (void)loadView
 {
     self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    
+    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
+    
+    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveNewItem)];
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
+    UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                           target:nil action:NULL];
+    
+    [toolbar setItems:[NSArray arrayWithObjects:cancelItem, space, addItem, nil]];
+    [self.view addSubview:toolbar];
     
     self.titleTextView = [[UITextField alloc] initWithFrame:CGRectMake(50, 50, self.view.frame.size.width - 100, 50)];
     self.titleTextView.placeholder = @"Put in your title here";
@@ -53,6 +60,14 @@
     
     self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(50, 300, self.view.frame.size.width - 100, 100)];
     [self.view addSubview:self.imageView];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.titleTextView.text = self.title ? self.title : nil;
+    self.descriptionTextView.text = self.description ? self.description : nil;
+    self.linkTextView.text = self.link ? self.link : nil;
 }
 
 #pragma mark - Updating Info in TextFields
@@ -78,7 +93,15 @@
     newItem[@"username"] = currentUser.username;
     
     [newItem saveInBackground];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES
+                             completion:NULL];
+}
+
+#pragma mark - Dealing with Cancel Button
+- (void)cancel
+{
+    [self dismissViewControllerAnimated:YES
+                             completion:NULL];
 }
 
 - (void)viewDidLoad

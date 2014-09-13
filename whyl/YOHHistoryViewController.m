@@ -9,6 +9,8 @@
 #import "YOHHistoryViewController.h"
 #import "YOHHistoryTableViewCell.h"
 
+#import "YOHAddViewController.h"
+
 #import <Parse/Parse.h>
 
 @interface YOHHistoryViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -23,17 +25,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        PFQuery *query = [PFQuery queryWithClassName:@"Item"];
-        [query whereKey:@"username" equalTo:[PFUser currentUser].username];
-        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-            if (!error) {
-                NSLog(@"%@", objects);
-                self.items = objects;
-                [self.tableView reloadData];
-            } else {
-                NSLog(@"Fetching items failed");
-            }
-        }];
     }
     return self;
 }
@@ -49,6 +40,21 @@
     [self.view addSubview:self.tableView];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    PFQuery *query = [PFQuery queryWithClassName:@"Item"];
+    [query whereKey:@"username" equalTo:[PFUser currentUser].username];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            NSLog(@"%@", objects);
+            self.items = objects;
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"Fetching items failed");
+        }
+    }];
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.items count];
@@ -62,7 +68,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     YOHHistoryTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"YOHHistoryTableViewCell"];
-    NSDictionary *item = self.items[[indexPath indexAtPosition:0]];
+    NSDictionary *item = self.items[indexPath.row];
     cell.title.text = item[@"title"];
     cell.description.text = item[@"description"];
     cell.date.text = [((PFObject *)item).updatedAt description];
@@ -71,30 +77,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    YOHAddViewController *addViewController = [[YOHAddViewController alloc] init];
+    NSDictionary *item = self.items[indexPath.row];
+    addViewController.link = item[@"link"];
+    addViewController.title = item[@"title"];
+    addViewController.description = item[@"description"];
+    self.navigationController.navigationBarHidden = false;
+    [self presentViewController:addViewController
+                       animated:YES
+                     completion:NULL];
 }
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
