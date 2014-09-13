@@ -7,9 +7,12 @@
 //
 
 #import "YOHLearnViewController.h"
+#import "YOHLearnTableViewCell.h"
 
-@interface YOHLearnViewController ()
+@interface YOHLearnViewController () <UITableViewDataSource, UITableViewDelegate>
 
+@property (strong, nonatomic) UITableView *tableView;
+@property (copy, nonatomic) NSDictionary *posts;
 @end
 
 @implementation YOHLearnViewController
@@ -19,8 +22,38 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        NSURLRequest *redditRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://www.reddit.com/r/todayilearned/hot.json?limit=3"]];
+        [NSURLConnection sendAsynchronousRequest:redditRequest queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+            NSDictionary *redditInfo = (NSDictionary *)data;
+            self.posts = redditInfo;
+            NSLog(@"%@",self.posts);
+        }];
     }
     return self;
+}
+
+-(void)loadView
+{
+    self.view = [[UIView alloc] init];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 20) style:UITableViewStylePlain];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 3;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    YOHLearnTableViewCell *cell = [YOHLearnTableViewCell new];
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 40;
 }
 
 - (void)viewDidLoad
