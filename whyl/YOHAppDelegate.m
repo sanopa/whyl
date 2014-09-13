@@ -18,10 +18,10 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[YOHMainViewController new]];
-    
     [Parse setApplicationId:@"CMSZ3FzRNmtH8SuDjQ9KIzjXEnNEcWKcwNR3gsdZ"
                   clientKey:@"n5JtzXX4bR9bhpkcb2Fw4rAfgWfHEF2sbybXSYJw"];
+    
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[YOHMainViewController new]];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

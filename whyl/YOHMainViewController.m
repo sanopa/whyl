@@ -8,8 +8,10 @@
 
 #import "YOHMainViewController.h"
 
-@interface YOHMainViewController ()
+#import <Parse/Parse.h>
 
+@interface YOHMainViewController ()
+@property (nonatomic, strong) UIButton *addButton;
 @end
 
 @implementation YOHMainViewController
@@ -18,9 +20,67 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        PFUser *currentUser = [PFUser currentUser];
+        if (!currentUser) {
+            NSString *UUID = [self getUUID];
+            [PFUser logInWithUsernameInBackground:UUID password:@"" block:^(PFUser *user, NSError *error) {
+                if (error) {
+                    [self signUpForParse:UUID];
+                }
+            }];
+        }
+        
     }
     return self;
+}
+
+- (void)loadView
+{
+    self.view = [[UIView alloc] init];
+    
+    self.addButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
+    [self.addButton setTitle:@"Add" forState:UIControlStateNormal];
+    self.addButton.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:self.addButton];
+    
+    PFUser *currentUser = [PFUser currentUser];
+    if (currentUser) {
+        NSLog(@"Yay, signed up / logged in successfully\n");
+        NSLog(@"%@",currentUser.username);
+    } else {
+        // Gray out the buttons
+    }
+}
+
+- (NSString *)getUUID
+{
+    NSString *UUID = [[NSUserDefaults standardUserDefaults] objectForKey:@"uniqueID"];
+    if (!UUID) {
+        CFUUIDRef theUUID = CFUUIDCreate(NULL);
+        CFStringRef string = CFUUIDCreateString(NULL, theUUID);
+        CFRelease(theUUID);
+        UUID = [(__bridge NSString*)string stringByReplacingOccurrencesOfString:@"-"withString:@""];
+        [[NSUserDefaults standardUserDefaults] setValue:UUID forKey:@"uniqueID"];
+    }
+    return UUID;
+}
+
+- (void)signUpForParse:(NSString *)UUID
+{
+    PFUser *newUser = [PFUser user];
+    newUser.username = UUID;
+    newUser.password = @"";
+    
+    [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (error)
+            NSLog(@"Some error with signing up.");
+    }];
+    
+}
+
+- (void)createUserOnParse:(NSString *)UUID
+{
+    
 }
 
 - (void)viewDidLoad
