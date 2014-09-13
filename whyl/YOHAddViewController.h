@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface YOHAddViewController : UIViewController
-
+@property (nonatomic, strong) NSString *description;
+@property (nonatomic, strong) NSString *link;
 @end
