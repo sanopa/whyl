@@ -22,6 +22,7 @@
                   clientKey:@"n5JtzXX4bR9bhpkcb2Fw4rAfgWfHEF2sbybXSYJw"];
     
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[YOHMainViewController new]];
+    ((UINavigationController *)self.window.rootViewController).navigationBarHidden = true;
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

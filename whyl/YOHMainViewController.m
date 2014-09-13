@@ -11,7 +11,11 @@
 #import <Parse/Parse.h>
 
 @interface YOHMainViewController ()
+@property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIButton *addButton;
+@property (nonatomic, strong) UIButton *historyButton;
+@property (nonatomic, strong) UIButton *redditButton;
+@property (nonatomic, strong) UIButton *settingsButton;
 @end
 
 @implementation YOHMainViewController
@@ -38,10 +42,31 @@
 {
     self.view = [[UIView alloc] init];
     
+    // S: initializing buttons and title
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 50, 100, 50)];
+    self.titleLabel.text = @"whyl";
+    self.titleLabel.textColor = [UIColor blackColor];
+    [self.view addSubview:self.titleLabel];
+    
     self.addButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
     [self.addButton setTitle:@"Add" forState:UIControlStateNormal];
     self.addButton.backgroundColor = [UIColor blackColor];
     [self.view addSubview:self.addButton];
+    
+    self.historyButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 200, 100, 100)];
+    [self.historyButton setTitle:@"History" forState:UIControlStateNormal];
+    self.historyButton.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:self.historyButton];
+    
+    self.redditButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 300, 100, 100)];
+    [self.redditButton setTitle:@"learn" forState:UIControlStateNormal];
+    self.redditButton.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:self.redditButton];
+    
+    self.settingsButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 400, 100, 100)];
+    [self.settingsButton setTitle:@"Settings" forState:UIControlStateNormal];
+    self.settingsButton.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:self.settingsButton];
     
     PFUser *currentUser = [PFUser currentUser];
     if (currentUser) {
