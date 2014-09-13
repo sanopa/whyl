@@ -19,7 +19,7 @@
 @end
 
 @implementation YOHAddViewController
-static NSString *placeholderTitle = @"what did you learn today?";
+static NSString *placeholderTitle = @"what have you learned today?";
 static NSString *placeholderDesc = @"add a bit more elaboration";
 static NSString *placeholderLink = @"attach a link";
 
@@ -57,14 +57,14 @@ static NSString *placeholderLink = @"attach a link";
     toolbar.barTintColor = [UIColor blackColor];
     [self.view addSubview:toolbar];
     
-    self.titleTextView = [[UITextView alloc] initWithFrame:CGRectMake(20, 64, self.view.frame.size.width - 40, 50)];
+    self.titleTextView = [[UITextView alloc] initWithFrame:CGRectMake(20, 64, self.view.frame.size.width - 40, 75)];
     self.titleTextView.text = placeholderTitle;
     self.titleTextView.textColor = [UIColor lightGrayColor];
     self.titleTextView.font = [UIFont fontWithName:@"Kailasa-Bold" size:18.0];
     self.titleTextView.delegate = self;
     [self.view addSubview:self.titleTextView];
     
-    self.descriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(self.titleTextView.frame.origin.x, self.titleTextView.frame.size.height + self.titleTextView.frame.origin.y + 10, self.titleTextView.frame.size.width, 150)];
+    self.descriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(self.titleTextView.frame.origin.x, self.titleTextView.frame.size.height + self.titleTextView.frame.origin.y + 10, self.titleTextView.frame.size.width, 300)];
     self.descriptionTextView.text = placeholderDesc;
     self.descriptionTextView.textColor = [UIColor lightGrayColor];
     self.descriptionTextView.font = [UIFont fontWithName:@"Kailasa" size:18.0];
@@ -74,7 +74,7 @@ static NSString *placeholderLink = @"attach a link";
     self.linkTextView = [[UITextView alloc] initWithFrame:CGRectMake(self.titleTextView.frame.origin.x, self.descriptionTextView.frame.origin.y + self.descriptionTextView.frame.size.height + 10, self.titleTextView.frame.size.width, 50)];
     self.linkTextView.text = placeholderLink;
     self.linkTextView.textColor = [UIColor lightGrayColor];
-    self.linkTextView.font = [UIFont fontWithName:@"Kailasa" size:18.0];
+    self.linkTextView.font = [UIFont fontWithName:@"Kailasa" size:14.0];
     self.linkTextView.delegate = self;
     [self.view addSubview:self.linkTextView];
 }
@@ -142,6 +142,8 @@ static NSString *placeholderLink = @"attach a link";
         || [textView.text isEqualToString:placeholderLink])
         textView.text = @"";
     textView.textColor = [UIColor blackColor];
+    self.descriptionTextView.frame = CGRectMake(self.titleTextView.frame.origin.x, self.titleTextView.frame.size.height + self.titleTextView.frame.origin.y + 10, self.titleTextView.frame.size.width, 125);
+    self.linkTextView.frame = CGRectMake(self.titleTextView.frame.origin.x, self.descriptionTextView.frame.origin.y + self.descriptionTextView.frame.size.height + 10, self.titleTextView.frame.size.width, 50);
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView
@@ -155,7 +157,9 @@ static NSString *placeholderLink = @"attach a link";
             self.linkTextView.text = placeholderLink;
         textView.textColor = [UIColor lightGrayColor];
     }
-        
+    self.descriptionTextView.frame = CGRectMake(self.titleTextView.frame.origin.x, self.titleTextView.frame.size.height + self.titleTextView.frame.origin.y + 10, self.titleTextView.frame.size.width, 300);
+    self.linkTextView.frame = CGRectMake(self.titleTextView.frame.origin.x, self.descriptionTextView.frame.origin.y + self.descriptionTextView.frame.size.height + 10, self.titleTextView.frame.size.width, 50);
+    
 }
 
 #pragma mark - Dealing with Cancel Button
