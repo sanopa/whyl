@@ -35,10 +35,40 @@
             [PFUser logInWithUsernameInBackground:UUID password:@"" block:^(PFUser *user, NSError *error) {
                 if (error) {
                     [self signUpForParse:UUID];
+                } else {
+                    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                    dateFormatter.dateFormat = @"MM/dd/yyyy";
+                    
+                    NSDate *today = [dateFormatter dateFromString:[dateFormatter stringFromDate:[NSDate date]]];
+                    if ([[dateFormatter dateFromString:[[NSUserDefaults standardUserDefaults] valueForKey:@"lastDateLearned"]] isEqualToDate:today]) {
+                        self.addButton.enabled = NO;
+                        self.redditButton.enabled = NO;
+                    } else {
+                        self.addButton.enabled = YES;
+                        self.redditButton.enabled = YES;
+                    }
+                    self.settingsButton.enabled = YES;
+                    self.historyButton.enabled = YES;
                 }
             }];
+        } else {
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            dateFormatter.dateFormat = @"MM/dd/yyyy";
+            
+            NSDate *today = [dateFormatter dateFromString:[dateFormatter stringFromDate:[NSDate date]]];
+            NSDate *lastDay =[dateFormatter dateFromString:[[NSUserDefaults standardUserDefaults] valueForKey:@"lastDateLearned"]];
+            if ([lastDay isEqualToDate:today]) {
+                self.addButton.enabled = NO;
+                self.redditButton.enabled = NO;
+            } else {
+                self.addButton.enabled = YES;
+                self.redditButton.enabled = YES;
+            }
+            self.settingsButton.enabled = YES;
+            self.historyButton.enabled = YES;
+
         }
-        
+    
     }
     return self;
 }
@@ -110,6 +140,12 @@
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (error)
             NSLog(@"Some error with signing up.");
+        else {
+            self.addButton.enabled = YES;
+            self.redditButton.enabled = YES;
+            self.historyButton.enabled = YES;
+            self.settingsButton.enabled = YES;
+        }
     }];
     
 }
@@ -155,6 +191,23 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = true;
+    if ([PFUser currentUser]) {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"MM/dd/yyyy";
+        
+        NSDate *today = [dateFormatter dateFromString:[dateFormatter stringFromDate:[NSDate date]]];
+        NSDate *lastDay =[dateFormatter dateFromString:[[NSUserDefaults standardUserDefaults] valueForKey:@"lastDateLearned"]];
+        if ([lastDay isEqualToDate:today]) {
+            self.addButton.enabled = NO;
+            self.redditButton.enabled = NO;
+        } else {
+            self.addButton.enabled = YES;
+            self.redditButton.enabled = YES;
+        }
+        self.settingsButton.enabled = YES;
+        self.historyButton.enabled = YES;
+    }
+
 }
 
 -(void)viewDidAppear:(BOOL)animated

@@ -109,6 +109,10 @@
         
         [newItem saveInBackground];
     }
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"MM/dd/yyyy";
+    dateFormatter.timeZone = [NSTimeZone defaultTimeZone];
+    [[NSUserDefaults standardUserDefaults] setValue:[dateFormatter stringFromDate:[NSDate date]] forKey:@"lastDateLearned"];
     [self dismissViewControllerAnimated:YES
                              completion:NULL];
 }
