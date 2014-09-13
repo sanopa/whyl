@@ -19,6 +19,11 @@
 		EBA299FB19C3D1BE0027572F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA299E319C3D1BE0027572F /* UIKit.framework */; };
 		EBA29A0319C3D1BE0027572F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EBA29A0119C3D1BE0027572F /* InfoPlist.strings */; };
 		EBA29A0519C3D1BE0027572F /* whylTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EBA29A0419C3D1BE0027572F /* whylTests.m */; };
+		EBA29A1019C3D4B50027572F /* YOHMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBA29A0F19C3D4B50027572F /* YOHMainViewController.m */; };
+		EBA29A1319C3D4C70027572F /* YOHAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBA29A1219C3D4C70027572F /* YOHAddViewController.m */; };
+		EBA29A1619C3D4D00027572F /* YOHLearnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBA29A1519C3D4D00027572F /* YOHLearnViewController.m */; };
+		EBA29A1919C3D4E40027572F /* YOHHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBA29A1819C3D4E40027572F /* YOHHistoryViewController.m */; };
+		EBA29A1C19C3D5110027572F /* YOHPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBA29A1B19C3D5110027572F /* YOHPostViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +53,16 @@
 		EBA29A0019C3D1BE0027572F /* whylTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "whylTests-Info.plist"; sourceTree = "<group>"; };
 		EBA29A0219C3D1BE0027572F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EBA29A0419C3D1BE0027572F /* whylTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = whylTests.m; sourceTree = "<group>"; };
+		EBA29A0E19C3D4B50027572F /* YOHMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YOHMainViewController.h; sourceTree = "<group>"; };
+		EBA29A0F19C3D4B50027572F /* YOHMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YOHMainViewController.m; sourceTree = "<group>"; };
+		EBA29A1119C3D4C70027572F /* YOHAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YOHAddViewController.h; sourceTree = "<group>"; };
+		EBA29A1219C3D4C70027572F /* YOHAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YOHAddViewController.m; sourceTree = "<group>"; };
+		EBA29A1419C3D4D00027572F /* YOHLearnViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YOHLearnViewController.h; sourceTree = "<group>"; };
+		EBA29A1519C3D4D00027572F /* YOHLearnViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YOHLearnViewController.m; sourceTree = "<group>"; };
+		EBA29A1719C3D4E40027572F /* YOHHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YOHHistoryViewController.h; sourceTree = "<group>"; };
+		EBA29A1819C3D4E40027572F /* YOHHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YOHHistoryViewController.m; sourceTree = "<group>"; };
+		EBA29A1A19C3D5110027572F /* YOHPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YOHPostViewController.h; sourceTree = "<group>"; };
+		EBA29A1B19C3D5110027572F /* YOHPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YOHPostViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +124,16 @@
 			children = (
 				EBA299EE19C3D1BE0027572F /* YOHAppDelegate.h */,
 				EBA299EF19C3D1BE0027572F /* YOHAppDelegate.m */,
+				EBA29A0E19C3D4B50027572F /* YOHMainViewController.h */,
+				EBA29A0F19C3D4B50027572F /* YOHMainViewController.m */,
+				EBA29A1119C3D4C70027572F /* YOHAddViewController.h */,
+				EBA29A1219C3D4C70027572F /* YOHAddViewController.m */,
+				EBA29A1419C3D4D00027572F /* YOHLearnViewController.h */,
+				EBA29A1519C3D4D00027572F /* YOHLearnViewController.m */,
+				EBA29A1719C3D4E40027572F /* YOHHistoryViewController.h */,
+				EBA29A1819C3D4E40027572F /* YOHHistoryViewController.m */,
+				EBA29A1A19C3D5110027572F /* YOHPostViewController.h */,
+				EBA29A1B19C3D5110027572F /* YOHPostViewController.m */,
 				EBA299F119C3D1BE0027572F /* Images.xcassets */,
 				EBA299E619C3D1BE0027572F /* Supporting Files */,
 			);
@@ -241,7 +266,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBA299EC19C3D1BE0027572F /* main.m in Sources */,
+				EBA29A1C19C3D5110027572F /* YOHPostViewController.m in Sources */,
+				EBA29A1319C3D4C70027572F /* YOHAddViewController.m in Sources */,
+				EBA29A1619C3D4D00027572F /* YOHLearnViewController.m in Sources */,
 				EBA299F019C3D1BE0027572F /* YOHAppDelegate.m in Sources */,
+				EBA29A1919C3D4E40027572F /* YOHHistoryViewController.m in Sources */,
+				EBA29A1019C3D4B50027572F /* YOHMainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
