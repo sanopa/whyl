@@ -33,7 +33,6 @@
 		EBA29A2A19C3D8310027572F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA29A2919C3D8310027572F /* MobileCoreServices.framework */; };
 		EBA29A2C19C3D8370027572F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA29A2B19C3D8370027572F /* QuartzCore.framework */; };
 		EBA29A2E19C3D83E0027572F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA29A2D19C3D83E0027572F /* Security.framework */; };
-		EBA29A3019C3D8440027572F /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA29A2F19C3D8440027572F /* StoreKit.framework */; };
 		EBA29A3219C3D84A0027572F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA29A3119C3D84A0027572F /* SystemConfiguration.framework */; };
 		EBA29A3519C3F7F40027572F /* YOHHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EBA29A3419C3F7F40027572F /* YOHHistoryTableViewCell.m */; };
 		F503FA9D19C416630017F013 /* YOHSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F503FA9C19C416630017F013 /* YOHSettingsTableViewController.m */; };
@@ -87,7 +86,6 @@
 		EBA29A2919C3D8310027572F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		EBA29A2B19C3D8370027572F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		EBA29A2D19C3D83E0027572F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		EBA29A2F19C3D8440027572F /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		EBA29A3119C3D84A0027572F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EBA29A3319C3F7F40027572F /* YOHHistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YOHHistoryTableViewCell.h; sourceTree = "<group>"; };
 		EBA29A3419C3F7F40027572F /* YOHHistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YOHHistoryTableViewCell.m; sourceTree = "<group>"; };
@@ -105,7 +103,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBA29A3219C3D84A0027572F /* SystemConfiguration.framework in Frameworks */,
-				EBA29A3019C3D8440027572F /* StoreKit.framework in Frameworks */,
 				EBA29A2E19C3D83E0027572F /* Security.framework in Frameworks */,
 				EBA29A2C19C3D8370027572F /* QuartzCore.framework in Frameworks */,
 				EBA29A2A19C3D8310027572F /* MobileCoreServices.framework in Frameworks */,
@@ -157,7 +154,6 @@
 			isa = PBXGroup;
 			children = (
 				EBA29A3119C3D84A0027572F /* SystemConfiguration.framework */,
-				EBA29A2F19C3D8440027572F /* StoreKit.framework */,
 				EBA29A2D19C3D83E0027572F /* Security.framework */,
 				EBA29A2B19C3D8370027572F /* QuartzCore.framework */,
 				EBA29A2919C3D8310027572F /* MobileCoreServices.framework */,
@@ -281,6 +277,14 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Aiiyoh;
 				TargetAttributes = {
+					EBA299DB19C3D1BE0027572F = {
+						DevelopmentTeam = AJ8FG6Q86E;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+						};
+					};
 					EBA299F619C3D1BE0027572F = {
 						TestTargetID = EBA299DB19C3D1BE0027572F;
 					};
@@ -463,6 +467,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "whyl/whyl-Prefix.pch";
 				INFOPLIST_FILE = "whyl/whyl-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -480,6 +485,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "whyl/whyl-Prefix.pch";
 				INFOPLIST_FILE = "whyl/whyl-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

@@ -133,6 +133,7 @@ static NSString *placeholderLink = @"attach a link";
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"MM/dd/yyyy";
     dateFormatter.timeZone = [NSTimeZone defaultTimeZone];
+    dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
     [[NSUserDefaults standardUserDefaults] setValue:[dateFormatter stringFromDate:[NSDate date]] forKey:@"lastDateLearned"];
     [self dismissViewControllerAnimated:YES
                              completion:NULL];

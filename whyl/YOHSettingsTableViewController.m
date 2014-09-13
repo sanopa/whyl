@@ -30,6 +30,7 @@
         NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
         timeFormatter.dateFormat = @"hh:mm a";
         timeFormatter.timeZone = [NSTimeZone defaultTimeZone];
+        timeFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
         _timeFormatter = timeFormatter;
     }
     return self;
@@ -101,12 +102,14 @@
                 NSDateFormatter *todayFormatter = [[NSDateFormatter alloc] init];
                 todayFormatter.dateFormat = @"MM/dd/yyyy";
                 todayFormatter.timeZone = [NSTimeZone defaultTimeZone];
+                todayFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
                 NSString *today = [todayFormatter stringFromDate:[NSDate date]];
                 NSString *combinedDate = [NSString stringWithFormat:@"%@ %@", today, [[NSUserDefaults standardUserDefaults] valueForKey:@"timeOfAlert"]];
                 
                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
                 dateFormatter.dateFormat = @"MM/dd/yyyy hh:mm a";
                 dateFormatter.timeZone = [NSTimeZone defaultTimeZone];
+                dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
                 NSDate *pickerDate = [dateFormatter dateFromString:combinedDate];
                 datePicker.date = pickerDate;
             }
@@ -166,10 +169,12 @@
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             dateFormatter.dateFormat = @"MM/dd/yyyy hh:mm a";
             dateFormatter.timeZone = [NSTimeZone defaultTimeZone];
+            dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
             
             NSDateFormatter *todayFormatter = [[NSDateFormatter alloc] init];
             todayFormatter.dateFormat = @"MM/dd/yyyy";
             todayFormatter.timeZone = [NSTimeZone defaultTimeZone];
+            todayFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
             NSString *today = [todayFormatter stringFromDate:[NSDate date]];
             
             NSString *time = [self.timeFormatter stringFromDate:self.timeChosen];

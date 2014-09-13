@@ -40,6 +40,7 @@
                 } else {
                     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
                     dateFormatter.dateFormat = @"MM/dd/yyyy";
+                    dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
                     
                     NSDate *today = [dateFormatter dateFromString:[dateFormatter stringFromDate:[NSDate date]]];
                     if ([[dateFormatter dateFromString:[[NSUserDefaults standardUserDefaults] valueForKey:@"lastDateLearned"]] isEqualToDate:today]) {
@@ -56,6 +57,7 @@
         } else {
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             dateFormatter.dateFormat = @"MM/dd/yyyy";
+            dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
             
             NSDate *today = [dateFormatter dateFromString:[dateFormatter stringFromDate:[NSDate date]]];
             NSDate *lastDay =[dateFormatter dateFromString:[[NSUserDefaults standardUserDefaults] valueForKey:@"lastDateLearned"]];
@@ -200,6 +202,7 @@
     if ([PFUser currentUser]) {
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.dateFormat = @"MM/dd/yyyy";
+        dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
         
         NSDate *today = [dateFormatter dateFromString:[dateFormatter stringFromDate:[NSDate date]]];
         NSDate *lastDay =[dateFormatter dateFromString:[[NSUserDefaults standardUserDefaults] valueForKey:@"lastDateLearned"]];
@@ -237,9 +240,11 @@
         notification.repeatInterval = NSDayCalendarUnit;
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.dateFormat = @"MM/dd/yyyy hh:mm a";
+        dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
         
         NSDateFormatter *todayFormatter = [[NSDateFormatter alloc] init];
         todayFormatter.dateFormat = @"MM/dd/yyyy";
+        todayFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
         NSString *today = [todayFormatter stringFromDate:[NSDate date]];
         
         NSDate *date  =[dateFormatter dateFromString:[NSString stringWithFormat:@"%@ 8:00 PM", today]];
