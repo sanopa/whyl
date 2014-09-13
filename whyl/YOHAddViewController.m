@@ -17,8 +17,6 @@
 @property (nonatomic, strong) UIImageView *imageView;
 
 @property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *description;
-@property (nonatomic, strong) NSString *link;
 @property (nonatomic, strong) UIImage *image;
 @end
 
