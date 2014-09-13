@@ -94,7 +94,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.items count];
+    return [self.items count] + 1;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -105,26 +105,28 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     YOHHistoryTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"YOHHistoryTableViewCell"];
-    NSDictionary *item;
-    if (indexPath.row == 0) {
-        int random = arc4random() % [self.items count];
-        item = self.items[random];
-        self.specialItem = item;
-    } else {
-        item = self.items[indexPath.row-1];
+    if (self.items) {
+        NSDictionary *item;
+        if (indexPath.row == 0) {
+            int random = arc4random() % [self.items count];
+            item = self.items[random];
+            self.specialItem = item;
+        } else {
+            item = self.items[indexPath.row-1];
+        }
+        cell.title.text = [item[@"title"] isKindOfClass:[NSNull class]] ? nil : item[@"title"];
+        cell.description.text = [item[@"description"] isKindOfClass:[NSNull class]] ? nil : item[@"description"];
+        NSDate *createdDate = ((PFObject *)item).createdAt;
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+        [dateFormatter setDoesRelativeDateFormatting:YES];
+        cell.date.text = [dateFormatter stringFromDate:createdDate];
+        cell.specialText.text = indexPath.row == 0 ? @"BLAST FROM THE PAST" : @"";
+        
+        cell.backgroundColor = indexPath.row == 0 ?[UIColor colorWithRed:235/255.0 green:235/255.0 blue:240/255.0 alpha:1.0]
+        : [UIColor whiteColor];
     }
-    cell.title.text = [item[@"title"] isKindOfClass:[NSNull class]] ? nil : item[@"title"];
-    cell.description.text = [item[@"description"] isKindOfClass:[NSNull class]] ? nil : item[@"description"];
-    NSDate *createdDate = ((PFObject *)item).createdAt;
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
-    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    [dateFormatter setDoesRelativeDateFormatting:YES];
-    cell.date.text = [dateFormatter stringFromDate:createdDate];
-    cell.specialText.text = indexPath.row == 0 ? @"BLAST FROM THE PAST" : @"";
-    
-    cell.backgroundColor = indexPath.row == 0 ?[UIColor colorWithRed:235/255.0 green:235/255.0 blue:240/255.0 alpha:1.0]
-    : [UIColor whiteColor];
     return cell;
 }
 

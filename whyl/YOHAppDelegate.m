@@ -25,6 +25,8 @@
     [Parse setApplicationId:@"CMSZ3FzRNmtH8SuDjQ9KIzjXEnNEcWKcwNR3gsdZ"
                   clientKey:@"n5JtzXX4bR9bhpkcb2Fw4rAfgWfHEF2sbybXSYJw"];
     
+    [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"alertPresented"];
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
     YOHMainViewController *mainvc = [YOHMainViewController new];
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:mainvc];
     ((UINavigationController *)self.window.rootViewController).navigationBarHidden = true;
