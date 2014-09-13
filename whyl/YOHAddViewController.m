@@ -8,6 +8,8 @@
 
 #import "YOHAddViewController.h"
 
+#import "YOHHistoryViewController.h"
+
 #import <Parse/Parse.h>
 
 @interface YOHAddViewController () <UITextFieldDelegate>
@@ -33,7 +35,7 @@
 {
     self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
-    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
+    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, 44)];
     
     UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveNewItem)];
     UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
@@ -84,15 +86,32 @@
     self.link = self.linkTextView.text;
     self.image = self.imageView.image;
 
-    PFUser *currentUser = [PFUser currentUser];
-    PFObject *newItem = [PFObject objectWithClassName:@"Item"];
-    newItem[@"title"] = self.itemTitle ? self.itemTitle : [NSNull null];
-    newItem[@"description"] = self.description ? self.description : [NSNull null];
-    newItem[@"link"] = self.link ? self.link : [NSNull null];
-    newItem[@"photo"] = self.image ? UIImagePNGRepresentation(self.image) : [NSNull null];
-    newItem[@"username"] = currentUser.username;
-    
-    [newItem saveInBackground];
+    if (self.objectId) {
+        PFQuery *query = [PFQuery queryWithClassName:@"Item"];
+        [query getObjectInBackgroundWithId:self.objectId block:^(PFObject *object, NSError *error) {
+            if (!error) {
+                object[@"title"] = self.itemTitle ? self.itemTitle : [NSNull null];
+                object[@"description"] = self.description ? self.description : [NSNull null];
+                object[@"link"] = self.link ? self.link : [NSNull null];
+                object[@"photo"] = self.image ? UIImagePNGRepresentation(self.image) : [NSNull null];
+                [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (!error) {
+                        [(YOHHistoryViewController *)self.presentingViewController viewWillAppear:YES];
+                    }
+                }];
+            }
+        }];
+    } else {
+        PFUser *currentUser = [PFUser currentUser];
+        PFObject *newItem = [PFObject objectWithClassName:@"Item"];
+        newItem[@"title"] = self.itemTitle ? self.itemTitle : [NSNull null];
+        newItem[@"description"] = self.description ? self.description : [NSNull null];
+        newItem[@"link"] = self.link ? self.link : [NSNull null];
+        newItem[@"photo"] = self.image ? UIImagePNGRepresentation(self.image) : [NSNull null];
+        newItem[@"username"] = currentUser.username;
+        
+        [newItem saveInBackground];
+    }
     [self dismissViewControllerAnimated:YES
                              completion:NULL];
 }

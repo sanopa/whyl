@@ -80,8 +80,9 @@
     YOHAddViewController *addViewController = [[YOHAddViewController alloc] init];
     NSDictionary *item = self.items[indexPath.row];
     addViewController.link = item[@"link"];
-    addViewController.title = item[@"title"];
+    addViewController.itemTitle = item[@"title"];
     addViewController.description = item[@"description"];
+    addViewController.objectId = ((PFObject *)item).objectId;
     self.navigationController.navigationBarHidden = false;
     [self presentViewController:addViewController
                        animated:YES

@@ -12,4 +12,5 @@
 @property (nonatomic, strong) NSString *description;
 @property (nonatomic, strong) NSString *link;
 @property (nonatomic, strong) NSString *itemTitle;
+@property (nonatomic, strong) NSString *objectId;
 @end
