@@ -11,5 +11,5 @@
 @interface YOHLearnTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) UIButton *addToHistoryButton;
-@property (nonatomic, strong) UILabel *title;
+@property (nonatomic, strong) UILabel *titleLabel;
 @end
