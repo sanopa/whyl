@@ -8,7 +8,6 @@
 
 #import "YOHLearnViewController.h"
 #import "YOHLearnTableViewCell.h"
-#import "YOHPostViewController.h"
 #import "YOHAddViewController.h"
 #import "YOHPreviewViewController.h"
 

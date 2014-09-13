@@ -7,7 +7,7 @@
 //
 
 #import "YOHPreviewViewController.h"
-
+#import "YOHPostViewController.h"
 @interface YOHPreviewViewController ()
 
 @end
@@ -26,17 +26,52 @@
 -(void)loadView
 {
     self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 56, [UIScreen mainScreen].bounds.size.width - 60, 140)];
+    self.view.backgroundColor = [UIColor whiteColor];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 65, [UIScreen mainScreen].bounds.size.width - 60, 205 )];
     titleLabel.numberOfLines = 0;
     titleLabel.text = self.objectDict[@"title"];
+    titleLabel.font = [UIFont fontWithName:@"Kailasa" size:15.0];
+    titleLabel.adjustsFontSizeToFitWidth = YES;
     [self.view addSubview:titleLabel];
-    UILabel *urlLabel = [[UILabel alloc ]initWithFrame:CGRectMake(30, 200, [UIScreen mainScreen].bounds.size.width - 60, 80)];
-    urlLabel.numberOfLines = 0;
-    urlLabel.text = self.objectDict[@"url"];
-    urlLabel.userInteractionEnabled = YES;
-    [self.view addSubview:urlLabel];
+
+    UIWebView *redditView = [[UIWebView alloc] initWithFrame:CGRectMake(30, 280, [UIScreen mainScreen].bounds.size.width - 60, 125)];
+    NSURLRequest *redditRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.reddit.com%@",self.objectDict[@"permalink"]]]];
+    [redditView loadRequest:redditRequest];
+    redditView.scalesPageToFit = YES;
+    redditView.userInteractionEnabled = NO;
+    [self.view addSubview: redditView];
     
-    UIWebView *webView = [[UIWebView alloc] init]; 
+    UIButton *redditButton = [[UIButton alloc ] initWithFrame:redditView.frame];
+    [redditButton addTarget:self action:@selector(viewReddit) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:redditButton];
+    
+    
+    if (self.objectDict[@"url"]) {
+        UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(30, 415, [UIScreen mainScreen].bounds.size.width - 60, 125)];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.objectDict[@"url"]]];
+        [webView loadRequest:request];
+        webView.scalesPageToFit = YES;
+        webView.userInteractionEnabled = NO;
+        [self.view addSubview:webView];
+    
+        UIButton *webButton = [[UIButton alloc ] initWithFrame:webView.frame];
+        [webButton addTarget:self action:@selector(viewWebsite) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:webButton];
+    }
+}
+
+-(void)viewReddit
+{
+    YOHPostViewController *postvc = [YOHPostViewController new];
+    postvc.url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.reddit.com%@",self.objectDict[@"permalink"]]];
+    [self.navigationController pushViewController:postvc animated:YES];
+}
+
+-(void)viewWebsite
+{
+    YOHPostViewController *postvc = [YOHPostViewController new];
+    postvc.url = [NSURL URLWithString:self.objectDict[@"url"]];
+    [self.navigationController pushViewController:postvc animated:YES];
 }
 
 - (void)viewDidLoad
