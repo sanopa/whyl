@@ -24,6 +24,17 @@
 		EBA29A1619C3D4D00027572F /* YOHLearnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBA29A1519C3D4D00027572F /* YOHLearnViewController.m */; };
 		EBA29A1919C3D4E40027572F /* YOHHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBA29A1819C3D4E40027572F /* YOHHistoryViewController.m */; };
 		EBA29A1C19C3D5110027572F /* YOHPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBA29A1B19C3D5110027572F /* YOHPostViewController.m */; };
+		EBA29A1F19C3D7C50027572F /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA29A1D19C3D7C50027572F /* Bolts.framework */; };
+		EBA29A2019C3D7C50027572F /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA29A1E19C3D7C50027572F /* Parse.framework */; };
+		EBA29A2219C3D80C0027572F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA29A2119C3D80C0027572F /* AudioToolbox.framework */; };
+		EBA29A2419C3D8130027572F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA29A2319C3D8130027572F /* CFNetwork.framework */; };
+		EBA29A2619C3D8200027572F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA29A2519C3D8200027572F /* CoreLocation.framework */; };
+		EBA29A2819C3D8290027572F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA29A2719C3D8290027572F /* libz.dylib */; };
+		EBA29A2A19C3D8310027572F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA29A2919C3D8310027572F /* MobileCoreServices.framework */; };
+		EBA29A2C19C3D8370027572F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA29A2B19C3D8370027572F /* QuartzCore.framework */; };
+		EBA29A2E19C3D83E0027572F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA29A2D19C3D83E0027572F /* Security.framework */; };
+		EBA29A3019C3D8440027572F /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA29A2F19C3D8440027572F /* StoreKit.framework */; };
+		EBA29A3219C3D84A0027572F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA29A3119C3D84A0027572F /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +74,17 @@
 		EBA29A1819C3D4E40027572F /* YOHHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YOHHistoryViewController.m; sourceTree = "<group>"; };
 		EBA29A1A19C3D5110027572F /* YOHPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YOHPostViewController.h; sourceTree = "<group>"; };
 		EBA29A1B19C3D5110027572F /* YOHPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YOHPostViewController.m; sourceTree = "<group>"; };
+		EBA29A1D19C3D7C50027572F /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		EBA29A1E19C3D7C50027572F /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		EBA29A2119C3D80C0027572F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		EBA29A2319C3D8130027572F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		EBA29A2519C3D8200027572F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		EBA29A2719C3D8290027572F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		EBA29A2919C3D8310027572F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		EBA29A2B19C3D8370027572F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		EBA29A2D19C3D83E0027572F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		EBA29A2F19C3D8440027572F /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		EBA29A3119C3D84A0027572F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,9 +92,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBA29A3219C3D84A0027572F /* SystemConfiguration.framework in Frameworks */,
+				EBA29A3019C3D8440027572F /* StoreKit.framework in Frameworks */,
+				EBA29A2E19C3D83E0027572F /* Security.framework in Frameworks */,
+				EBA29A2C19C3D8370027572F /* QuartzCore.framework in Frameworks */,
+				EBA29A2A19C3D8310027572F /* MobileCoreServices.framework in Frameworks */,
+				EBA29A2819C3D8290027572F /* libz.dylib in Frameworks */,
+				EBA29A2619C3D8200027572F /* CoreLocation.framework in Frameworks */,
 				EBA299E219C3D1BE0027572F /* CoreGraphics.framework in Frameworks */,
+				EBA29A2419C3D8130027572F /* CFNetwork.framework in Frameworks */,
+				EBA29A2219C3D80C0027572F /* AudioToolbox.framework in Frameworks */,
 				EBA299E419C3D1BE0027572F /* UIKit.framework in Frameworks */,
 				EBA299E019C3D1BE0027572F /* Foundation.framework in Frameworks */,
+				EBA29A1F19C3D7C50027572F /* Bolts.framework in Frameworks */,
+				EBA29A2019C3D7C50027572F /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,6 +144,17 @@
 		EBA299DE19C3D1BE0027572F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EBA29A3119C3D84A0027572F /* SystemConfiguration.framework */,
+				EBA29A2F19C3D8440027572F /* StoreKit.framework */,
+				EBA29A2D19C3D83E0027572F /* Security.framework */,
+				EBA29A2B19C3D8370027572F /* QuartzCore.framework */,
+				EBA29A2919C3D8310027572F /* MobileCoreServices.framework */,
+				EBA29A2719C3D8290027572F /* libz.dylib */,
+				EBA29A2519C3D8200027572F /* CoreLocation.framework */,
+				EBA29A2319C3D8130027572F /* CFNetwork.framework */,
+				EBA29A2119C3D80C0027572F /* AudioToolbox.framework */,
+				EBA29A1D19C3D7C50027572F /* Bolts.framework */,
+				EBA29A1E19C3D7C50027572F /* Parse.framework */,
 				EBA299DF19C3D1BE0027572F /* Foundation.framework */,
 				EBA299E119C3D1BE0027572F /* CoreGraphics.framework */,
 				EBA299E319C3D1BE0027572F /* UIKit.framework */,
@@ -388,6 +432,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "whyl/whyl-Prefix.pch";
 				INFOPLIST_FILE = "whyl/whyl-Info.plist";
@@ -401,6 +449,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "whyl/whyl-Prefix.pch";
 				INFOPLIST_FILE = "whyl/whyl-Info.plist";
