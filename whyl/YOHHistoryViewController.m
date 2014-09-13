@@ -113,8 +113,8 @@
     } else {
         item = self.items[indexPath.row-1];
     }
-    cell.title.text = item[@"title"];
-    cell.description.text = item[@"description"];
+    cell.title.text = [item[@"title"] isKindOfClass:[NSNull class]] ? nil : item[@"title"];
+    cell.description.text = [item[@"description"] isKindOfClass:[NSNull class]] ? nil : item[@"description"];
     NSDate *createdDate = ((PFObject *)item).createdAt;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
@@ -137,15 +137,15 @@
         item = self.items[indexPath.row-1];
     else
         item = self.specialItem;
-        addViewController.link = item[@"link"];
-        addViewController.itemTitle = item[@"title"];
-        addViewController.description = item[@"description"];
-        addViewController.objectId = ((PFObject *)item).objectId;
-        addViewController.title = @"Edit";
-        self.navigationController.navigationBarHidden = false;
-        [self presentViewController:addViewController
-                           animated:YES
-                         completion:NULL];
+    addViewController.link = [item[@"link"] isKindOfClass:[NSNull class]] ? nil : item[@"link"];
+    addViewController.itemTitle = [item[@"title"] isKindOfClass:[NSNull class]] ? nil : item[@"title"];
+    addViewController.description = [item[@"description"] isKindOfClass:[NSNull class]] ? nil : item[@"description"];
+    addViewController.objectId = ((PFObject *)item).objectId;
+    addViewController.title = @"Edit";
+    self.navigationController.navigationBarHidden = false;
+    [self presentViewController:addViewController
+                       animated:YES
+                     completion:NULL];
 }
 
 - (void)searchHistory

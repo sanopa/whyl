@@ -82,12 +82,13 @@ static NSString *placeholderLink = @"attach a link";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.titleTextView.text = self.itemTitle ? self.itemTitle :  self.titleTextView.text;
+    self.titleTextView.text = (self.itemTitle && ![self.itemTitle isEqualToString:@""]) ? self.itemTitle :  self.titleTextView.text;
     if (![self.titleTextView.text isEqualToString:placeholderTitle]) self.titleTextView.textColor = [UIColor blackColor];
-    self.titleTextView.hidden = NO;
-    self.descriptionTextView.text = self.description ? self.description : self.descriptionTextView.text;
+
+    self.descriptionTextView.text = (self.description && ![self.description isEqualToString:@""]) ? self.description : self.descriptionTextView.text;
     if (![self.descriptionTextView.text isEqualToString:placeholderDesc]) self.descriptionTextView.textColor = [UIColor blackColor];
-    self.linkTextView.text = self.link ? self.link : self.linkTextView.text;
+    
+    self.linkTextView.text = (self.link && ![self.link isEqualToString:@""]) ? self.link : self.linkTextView.text;
     if (![self.linkTextView.text isEqualToString:placeholderLink]) self.linkTextView.textColor = [UIColor blackColor];
 }
 
@@ -100,9 +101,9 @@ static NSString *placeholderLink = @"attach a link";
 
 - (void)saveNewItem
 {
-    self.itemTitle = self.titleTextView.text;
-    self.description = self.descriptionTextView.text;
-    self.link = self.linkTextView.text;
+    self.itemTitle = ![self.titleTextView.text isEqualToString:placeholderTitle] ? self.titleTextView.text : nil;
+    self.description = ![self.descriptionTextView.text isEqualToString:placeholderDesc] ? self.descriptionTextView.text : nil;
+    self.link = ![self.linkTextView.text isEqualToString:placeholderLink] ? self.linkTextView.text : nil;
     if (self.objectId) {
         PFQuery *query = [PFQuery queryWithClassName:@"Item"];
         [query getObjectInBackgroundWithId:self.objectId block:^(PFObject *object, NSError *error) {
@@ -119,13 +120,15 @@ static NSString *placeholderLink = @"attach a link";
         }];
     } else {
         PFUser *currentUser = [PFUser currentUser];
-        PFObject *newItem = [PFObject objectWithClassName:@"Item"];
-        newItem[@"title"] = self.itemTitle ? self.itemTitle : [NSNull null];
-        newItem[@"description"] = self.description ? self.description : [NSNull null];
-        newItem[@"link"] = self.link ? self.link : [NSNull null];
-        newItem[@"username"] = currentUser.username;
-        
-        [newItem saveInBackground];
+            if (self.itemTitle || self.description || self.link) {
+            PFObject *newItem = [PFObject objectWithClassName:@"Item"];
+            newItem[@"title"] = self.itemTitle ? self.itemTitle : [NSNull null];
+            newItem[@"description"] = self.description ? self.description : [NSNull null];
+            newItem[@"link"] = self.link ? self.link : [NSNull null];
+            newItem[@"username"] = currentUser.username;
+            
+            [newItem saveInBackground];
+        }
     }
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"MM/dd/yyyy";
