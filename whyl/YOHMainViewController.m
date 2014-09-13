@@ -30,6 +30,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         PFUser *currentUser = [PFUser currentUser];
+        [[NSUserDefaults standardUserDefaults]setValue:nil forKey:@"lastDateLearned"];
         if (!currentUser) {
             NSString *UUID = [self getUUID];
             [PFUser logInWithUsernameInBackground:UUID password:@"" block:^(PFUser *user, NSError *error) {
