@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSArray *searchResults;
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) NSTimer *searchDelay;
+@property (nonatomic, strong) NSDictionary *specialItem;
 @end
 
 @implementation YOHHistoryViewController
@@ -104,7 +105,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     YOHHistoryTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"YOHHistoryTableViewCell"];
-    NSDictionary *item = self.items[indexPath.row];
+    NSDictionary *item;
+    if (indexPath.row == 0) {
+        int random = arc4random() % [self.items count];
+        item = self.items[random];
+        self.specialItem = item;
+    } else {
+        item = self.items[indexPath.row-1];
+    }
     cell.title.text = item[@"title"];
     cell.description.text = item[@"description"];
     NSDate *createdDate = ((PFObject *)item).createdAt;
@@ -113,22 +121,29 @@
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
     [dateFormatter setDoesRelativeDateFormatting:YES];
     cell.date.text = [dateFormatter stringFromDate:createdDate];
+    cell.specialText.text = indexPath.row == 0 ? @"Reminder: you recently learned" : @"";
+    cell.backgroundColor = indexPath.row == 0 ?[UIColor colorWithRed:235/255.0 green:235/255.0 blue:240/255.0 alpha:1.0]
+    : [UIColor whiteColor];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     YOHAddViewController *addViewController = [[YOHAddViewController alloc] init];
-    NSDictionary *item = self.items[indexPath.row];
-    addViewController.link = item[@"link"];
-    addViewController.itemTitle = item[@"title"];
-    addViewController.description = item[@"description"];
-    addViewController.objectId = ((PFObject *)item).objectId;
-    addViewController.title = @"Edit";
-    self.navigationController.navigationBarHidden = false;
-    [self presentViewController:addViewController
-                       animated:YES
-                     completion:NULL];
+    NSDictionary *item;
+    if (indexPath.row > 0)
+        item = self.items[indexPath.row-1];
+    else
+        item = self.specialItem;
+        addViewController.link = item[@"link"];
+        addViewController.itemTitle = item[@"title"];
+        addViewController.description = item[@"description"];
+        addViewController.objectId = ((PFObject *)item).objectId;
+        addViewController.title = @"Edit";
+        self.navigationController.navigationBarHidden = false;
+        [self presentViewController:addViewController
+                           animated:YES
+                         completion:NULL];
 }
 
 - (void)searchHistory
@@ -136,6 +151,7 @@
     if (!self.searchBar) {
         self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 44)];
         self.searchBar.showsCancelButton = YES;
+        self.searchBar.tintColor = [UIColor blackColor];
         self.tableView.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 44);
         [self.view addSubview:self.searchBar];
         self.searchBar.delegate = self;

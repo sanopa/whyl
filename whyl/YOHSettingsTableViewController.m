@@ -25,6 +25,7 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        self.title = @"Settings";
         _showingPicker = NO;
         NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
         timeFormatter.dateFormat = @"hh:mm a";
@@ -85,6 +86,7 @@
                 [switchControl setOn:true animated:YES];
             }
             self.switchControl = switchControl;
+            [self.switchControl setOnTintColor:[UIColor blackColor]];
             [cell.contentView addSubview:self.switchControl];
         }
     } else {

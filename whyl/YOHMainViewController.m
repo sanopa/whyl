@@ -85,6 +85,10 @@
         NSLog(@"%@",currentUser.username);
     } else {
         // Gray out the buttons
+        self.addButton.enabled = NO;
+        self.historyButton.enabled = NO;
+        self.redditButton.enabled = NO;
+        self.settingsButton.enabled = NO;
     }
 }
 
