@@ -65,7 +65,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.titleTextView.text = self.title ? self.title : nil;
+    self.titleTextView.text = self.itemTitle ? self.itemTitle : nil;
     self.descriptionTextView.text = self.description ? self.description : nil;
     self.linkTextView.text = self.link ? self.link : nil;
 }
@@ -79,14 +79,14 @@
 
 - (void)saveNewItem
 {
-    self.title = self.titleTextView.text;
+    self.itemTitle = self.titleTextView.text;
     self.description = self.descriptionTextView.text;
     self.link = self.linkTextView.text;
     self.image = self.imageView.image;
 
     PFUser *currentUser = [PFUser currentUser];
     PFObject *newItem = [PFObject objectWithClassName:@"Item"];
-    newItem[@"title"] = self.title ? self.title : [NSNull null];
+    newItem[@"title"] = self.itemTitle ? self.itemTitle : [NSNull null];
     newItem[@"description"] = self.description ? self.description : [NSNull null];
     newItem[@"link"] = self.link ? self.link : [NSNull null];
     newItem[@"photo"] = self.image ? UIImagePNGRepresentation(self.image) : [NSNull null];
