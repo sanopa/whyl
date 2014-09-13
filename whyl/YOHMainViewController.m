@@ -48,33 +48,35 @@
     self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     // S: initializing buttons and title
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 50, 100, 50)];
-    self.titleLabel.text = @"whyl";
-    self.titleLabel.textColor = [UIColor blackColor];
+    self.titleLabel = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo"]];
+    self.titleLabel.frame = CGRectMake(0, 0, self.view.frame.size.width - 100, (self.view.frame.size.width - 100)/(self.titleLabel.image.size.width) * (self.titleLabel.image.size.height));
+    self.titleLabel.center = CGPointMake(self.view.frame.size.width / 2, 100);
     [self.view addSubview:self.titleLabel];
     
-    self.addButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
-    [self.addButton setTitle:@"Add" forState:UIControlStateNormal];
-    self.addButton.backgroundColor = [UIColor blackColor];
+    self.addButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 200, 75, 75)];
+    [self.addButton setImage:[UIImage imageNamed:@"add-main"] forState:UIControlStateNormal];
     [self.addButton addTarget:self action:@selector(addButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    self.addButton.center = CGPointMake(self.view.frame.size.width / 2 - (self.addButton.frame.size.width / self.addButton.currentImage.size.width) / 2,
+                                        self.addButton.frame.origin.y + (self.addButton.frame.size.height / self.addButton.currentImage.size.height) / 2);
     [self.view addSubview:self.addButton];
     
-    self.historyButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 200, 100, 100)];
-    [self.historyButton setTitle:@"History" forState:UIControlStateNormal];
-    self.historyButton.backgroundColor = [UIColor blackColor];
+    
+    self.historyButton = [[UIButton alloc] initWithFrame:CGRectMake(0, self.addButton.frame.origin.y + self.addButton.frame.size.height + 50, 75, 75)];
+    [self.historyButton setImage:[UIImage imageNamed:@"history-main"] forState:UIControlStateNormal];
     [self.historyButton addTarget:self action:@selector(historyButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    self.historyButton.center = CGPointMake(self.view.frame.size.width / 2 - (self.historyButton.frame.size.width / self.historyButton.currentImage.size.width) / 2, self.historyButton.frame.origin.y + (self.historyButton.frame.size.height / self.historyButton.currentImage.size.height) / 2);
     [self.view addSubview:self.historyButton];
     
-    self.redditButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 300, 100, 100)];
-    [self.redditButton setTitle:@"learn" forState:UIControlStateNormal];
-    self.redditButton.backgroundColor = [UIColor blackColor];
+    self.redditButton = [[UIButton alloc] initWithFrame:CGRectMake(0, self.historyButton.frame.origin.y + self.historyButton.frame.size.height + 50, 75, 75)];
+    [self.redditButton setImage:[UIImage imageNamed:@"learn-main"] forState:UIControlStateNormal];
     [self.redditButton addTarget:self action:@selector(redditButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    self.redditButton.center = CGPointMake(self.view.frame.size.width / 2 - (self.redditButton.frame.size.width / self.redditButton.currentImage.size.width) / 2, self.redditButton.frame.origin.y + (self.redditButton.frame.size.height / self.redditButton.currentImage.size.height) / 2);
     [self.view addSubview:self.redditButton];
     
-    self.settingsButton = [[UIButton alloc] initWithFrame:CGRectMake(100, 400, 100, 100)];
-    [self.settingsButton setTitle:@"Settings" forState:UIControlStateNormal];
-    self.settingsButton.backgroundColor = [UIColor blackColor];
+    self.settingsButton = [[UIButton alloc] initWithFrame:CGRectMake(0, self.redditButton.frame.origin.y + self.redditButton.frame.size.height + 50, 75, 75)];
+    [self.settingsButton setImage:[UIImage imageNamed:@"settings-main"] forState:UIControlStateNormal];
     [self.settingsButton addTarget:self action:@selector(settingsButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    self.settingsButton.center = CGPointMake(self.view.frame.size.width / 2 - (self.settingsButton.frame.size.width / self.settingsButton.currentImage.size.width) / 2, self.settingsButton.frame.origin.y + (self.settingsButton.frame.size.height / self.settingsButton.currentImage.size.height) / 2);
     [self.view addSubview:self.settingsButton];
     
     PFUser *currentUser = [PFUser currentUser];
@@ -116,8 +118,11 @@
 - (void)addButtonPressed:(UIButton *)button
 {
     UIViewController *addViewController = [[YOHAddViewController alloc] init];
+    addViewController.title = @"Add";
     self.navigationController.navigationBarHidden = false;
-    [self.navigationController pushViewController:addViewController animated:YES];
+    [self presentViewController:addViewController
+                       animated:YES
+                     completion:NULL];
 }
 
 - (void)historyButtonPressed:(UIButton *)button

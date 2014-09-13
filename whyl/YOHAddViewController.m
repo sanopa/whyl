@@ -8,6 +8,8 @@
 
 #import "YOHAddViewController.h"
 
+#import "YOHHistoryViewController.h"
+
 #import <Parse/Parse.h>
 
 @interface YOHAddViewController () <UITextFieldDelegate>
@@ -16,7 +18,6 @@
 @property (nonatomic, strong) UITextField *linkTextView;
 @property (nonatomic, strong) UIImageView *imageView;
 
-@property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) UIImage *image;
 @end
 
@@ -26,8 +27,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveNewItem)];
-        self.navigationItem.rightBarButtonItem = addItem;
     }
     return self;
 }
@@ -35,6 +34,22 @@
 - (void)loadView
 {
     self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    
+    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, 44)];
+    
+    UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveNewItem)];
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
+    UIBarButtonItem *title = [[UIBarButtonItem alloc] initWithTitle:self.title
+                                                              style:UIBarButtonItemStylePlain
+                                                             target:self
+                                                             action:NULL];
+    UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                           target:self
+                                                                           action:NULL];
+    
+    [toolbar setItems:[NSArray arrayWithObjects:cancelItem, space, title, space, addItem, nil]];
+    toolbar.tintColor = [UIColor blackColor];
+    [self.view addSubview:toolbar];
     
     self.titleTextView = [[UITextField alloc] initWithFrame:CGRectMake(50, 50, self.view.frame.size.width - 100, 50)];
     self.titleTextView.placeholder = @"Put in your title here";
@@ -55,6 +70,14 @@
     [self.view addSubview:self.imageView];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.titleTextView.text = self.itemTitle ? self.itemTitle : nil;
+    self.descriptionTextView.text = self.description ? self.description : nil;
+    self.linkTextView.text = self.link ? self.link : nil;
+}
+
 #pragma mark - Updating Info in TextFields
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -64,21 +87,46 @@
 
 - (void)saveNewItem
 {
-    self.title = self.titleTextView.text;
+    self.itemTitle = self.titleTextView.text;
     self.description = self.descriptionTextView.text;
     self.link = self.linkTextView.text;
     self.image = self.imageView.image;
 
-    PFUser *currentUser = [PFUser currentUser];
-    PFObject *newItem = [PFObject objectWithClassName:@"Item"];
-    newItem[@"title"] = self.title ? self.title : [NSNull null];
-    newItem[@"description"] = self.description ? self.description : [NSNull null];
-    newItem[@"link"] = self.link ? self.link : [NSNull null];
-    newItem[@"photo"] = self.image ? UIImagePNGRepresentation(self.image) : [NSNull null];
-    newItem[@"username"] = currentUser.username;
-    
-    [newItem saveInBackground];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    if (self.objectId) {
+        PFQuery *query = [PFQuery queryWithClassName:@"Item"];
+        [query getObjectInBackgroundWithId:self.objectId block:^(PFObject *object, NSError *error) {
+            if (!error) {
+                object[@"title"] = self.itemTitle ? self.itemTitle : [NSNull null];
+                object[@"description"] = self.description ? self.description : [NSNull null];
+                object[@"link"] = self.link ? self.link : [NSNull null];
+                object[@"photo"] = self.image ? UIImagePNGRepresentation(self.image) : [NSNull null];
+                [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (!error) {
+                        [(YOHHistoryViewController *)self.presentingViewController viewWillAppear:YES];
+                    }
+                }];
+            }
+        }];
+    } else {
+        PFUser *currentUser = [PFUser currentUser];
+        PFObject *newItem = [PFObject objectWithClassName:@"Item"];
+        newItem[@"title"] = self.itemTitle ? self.itemTitle : [NSNull null];
+        newItem[@"description"] = self.description ? self.description : [NSNull null];
+        newItem[@"link"] = self.link ? self.link : [NSNull null];
+        newItem[@"photo"] = self.image ? UIImagePNGRepresentation(self.image) : [NSNull null];
+        newItem[@"username"] = currentUser.username;
+        
+        [newItem saveInBackground];
+    }
+    [self dismissViewControllerAnimated:YES
+                             completion:NULL];
+}
+
+#pragma mark - Dealing with Cancel Button
+- (void)cancel
+{
+    [self dismissViewControllerAnimated:YES
+                             completion:NULL];
 }
 
 - (void)viewDidLoad
