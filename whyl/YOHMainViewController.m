@@ -30,15 +30,46 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         PFUser *currentUser = [PFUser currentUser];
+        [[NSUserDefaults standardUserDefaults]setValue:nil forKey:@"lastDateLearned"];
         if (!currentUser) {
             NSString *UUID = [self getUUID];
             [PFUser logInWithUsernameInBackground:UUID password:@"" block:^(PFUser *user, NSError *error) {
                 if (error) {
                     [self signUpForParse:UUID];
+                } else {
+                    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                    dateFormatter.dateFormat = @"MM/dd/yyyy";
+                    
+                    NSDate *today = [dateFormatter dateFromString:[dateFormatter stringFromDate:[NSDate date]]];
+                    if ([[dateFormatter dateFromString:[[NSUserDefaults standardUserDefaults] valueForKey:@"lastDateLearned"]] isEqualToDate:today]) {
+                        self.addButton.enabled = NO;
+                        self.redditButton.enabled = NO;
+                    } else {
+                        self.addButton.enabled = YES;
+                        self.redditButton.enabled = YES;
+                    }
+                    self.settingsButton.enabled = YES;
+                    self.historyButton.enabled = YES;
                 }
             }];
+        } else {
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            dateFormatter.dateFormat = @"MM/dd/yyyy";
+            
+            NSDate *today = [dateFormatter dateFromString:[dateFormatter stringFromDate:[NSDate date]]];
+            NSDate *lastDay =[dateFormatter dateFromString:[[NSUserDefaults standardUserDefaults] valueForKey:@"lastDateLearned"]];
+            if ([lastDay isEqualToDate:today]) {
+                self.addButton.enabled = NO;
+                self.redditButton.enabled = NO;
+            } else {
+                self.addButton.enabled = YES;
+                self.redditButton.enabled = YES;
+            }
+            self.settingsButton.enabled = YES;
+            self.historyButton.enabled = YES;
+
         }
-        
+    
     }
     return self;
 }
@@ -114,6 +145,12 @@
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (error)
             NSLog(@"Some error with signing up.");
+        else {
+            self.addButton.enabled = YES;
+            self.redditButton.enabled = YES;
+            self.historyButton.enabled = YES;
+            self.settingsButton.enabled = YES;
+        }
     }];
     
 }
@@ -159,6 +196,23 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = true;
+    if ([PFUser currentUser]) {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"MM/dd/yyyy";
+        
+        NSDate *today = [dateFormatter dateFromString:[dateFormatter stringFromDate:[NSDate date]]];
+        NSDate *lastDay =[dateFormatter dateFromString:[[NSUserDefaults standardUserDefaults] valueForKey:@"lastDateLearned"]];
+        if ([lastDay isEqualToDate:today]) {
+            self.addButton.enabled = NO;
+            self.redditButton.enabled = NO;
+        } else {
+            self.addButton.enabled = YES;
+            self.redditButton.enabled = YES;
+        }
+        self.settingsButton.enabled = YES;
+        self.historyButton.enabled = YES;
+    }
+
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -168,6 +222,10 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Receive Alerts?" message:@"Do you want to receive a reminder every day to record what you learned?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
         [alertView show];
         [[NSUserDefaults standardUserDefaults] setValue:@YES forKey:@"alertPresented"];
+    } else if (self.launchedFromNotification == TRUE) {
+        YOHAddViewController *addVc = [[YOHAddViewController alloc] init];
+        addVc.title = @"Add";
+        [self presentViewController:addVc animated:YES completion:nil];
     }
 }
 
