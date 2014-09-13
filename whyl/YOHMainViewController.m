@@ -11,10 +11,11 @@
 #import "YOHAddViewController.h"
 #import "YOHHistoryViewController.h"
 #import "YOHLearnViewController.h"
+#import "YOHSettingsTableViewController.h"
 
 #import <Parse/Parse.h>
 
-@interface YOHMainViewController ()
+@interface YOHMainViewController () <UIAlertViewDelegate>
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIButton *addButton;
 @property (nonatomic, strong) UIButton *historyButton;
@@ -135,7 +136,9 @@
 
 - (void)settingsButtonPressed:(UIButton *)button
 {
-    NSLog(@"Settings button pressed");
+    UIViewController *settingsViewController = [[YOHSettingsTableViewController alloc] init];
+    self.navigationController.navigationBarHidden = false;
+    [self.navigationController pushViewController:settingsViewController animated:YES];
 }
 
 - (void)viewDidLoad
@@ -148,6 +151,38 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = true;
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (![[NSUserDefaults standardUserDefaults] valueForKey:@"alertPresented"]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Receive Alerts?" message:@"Do you want to receive a reminder every day to record what you learned?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        [alertView show];
+        [[NSUserDefaults standardUserDefaults] setValue:@YES forKey:@"alertPresented"];
+    }
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        UILocalNotification *notification = [[UILocalNotification alloc] init];
+        notification.repeatInterval = NSDayCalendarUnit;
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"MM/dd/yyyy hh:mm a";
+        
+        NSDateFormatter *todayFormatter = [[NSDateFormatter alloc] init];
+        todayFormatter.dateFormat = @"MM/dd/yyyy";
+        NSString *today = [todayFormatter stringFromDate:[NSDate date]];
+        
+        NSDate *date  =[dateFormatter dateFromString:[NSString stringWithFormat:@"%@ 8:00 PM", today]];
+        notification.fireDate = date;
+        
+        notification.alertBody = @"Record what you learned today!";
+        
+        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+        [[NSUserDefaults standardUserDefaults] setValue:@"8:00 PM" forKey:@"timeOfAlert"];
+    }
 }
 
 - (void)didReceiveMemoryWarning

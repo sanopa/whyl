@@ -16,6 +16,7 @@
 @property (strong, nonatomic) UITableView *tableView;
 @property (copy, nonatomic) NSArray *posts;
 @property (nonatomic) NSInteger *viewed;
+
 @end
 
 @implementation YOHLearnViewController
@@ -37,6 +38,8 @@
     self.tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.tableView.scrollEnabled = NO;
+    [self.tableView registerClass:[YOHLearnTableViewCell class] forCellReuseIdentifier:@"YOHLearnTableViewCell"];
     [self.view addSubview:self.tableView];
 }
 
@@ -56,7 +59,7 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    YOHLearnTableViewCell *cell = [YOHLearnTableViewCell new];
+    YOHLearnTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"YOHLearnTableViewCell" forIndexPath:indexPath];
     cell.titleLabel.text = self.posts[indexPath.row][@"title"];
     cell.addToHistoryButton.tag = indexPath.row;
     [cell.addToHistoryButton addTarget:self action:@selector(addToHistory:) forControlEvents:UIControlEventTouchUpInside];
@@ -85,7 +88,9 @@
 {
     NSInteger index = button.tag;
     YOHAddViewController *addViewController = [[YOHAddViewController alloc] init];
-    [self.navigationController pushViewController:addViewController animated:YES];
+    addViewController.description = self.posts[index][@"title"];
+    addViewController.link = [NSString stringWithFormat:@"http://www.reddit.com%@",self.posts[index][@"permalink"]];
+    [self presentViewController:addViewController animated:YES completion:nil];
     
 }
 - (void)viewDidLoad
