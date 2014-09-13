@@ -16,6 +16,7 @@
 @interface YOHHistoryViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *items;
+@property (nonatomic, strong) UISearchBar *searchBar;
 @end
 
 @implementation YOHHistoryViewController
@@ -24,7 +25,11 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        self.title = @"History";
+        UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
+                                                                                    target:self
+                                                                                    action:@selector(searchHistory)];
+        self.navigationItem.rightBarButtonItem = searchItem;
     }
     return self;
 }
@@ -83,10 +88,24 @@
     addViewController.itemTitle = item[@"title"];
     addViewController.description = item[@"description"];
     addViewController.objectId = ((PFObject *)item).objectId;
+    addViewController.title = @"Edit";
     self.navigationController.navigationBarHidden = false;
     [self presentViewController:addViewController
                        animated:YES
                      completion:NULL];
+}
+
+- (void)searchHistory
+{
+    if (!self.searchBar) {
+        self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 44)];
+        self.tableView.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 44);
+        [self.view addSubview:self.searchBar];
+    } else {
+        [self.searchBar removeFromSuperview];
+        self.searchBar = nil;
+        self.tableView.frame = CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height);
+    }
 }
 
 @end

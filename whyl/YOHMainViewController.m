@@ -115,6 +115,7 @@
 - (void)addButtonPressed:(UIButton *)button
 {
     UIViewController *addViewController = [[YOHAddViewController alloc] init];
+    addViewController.title = @"Add";
     self.navigationController.navigationBarHidden = false;
     [self presentViewController:addViewController
                        animated:YES

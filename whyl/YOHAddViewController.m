@@ -39,10 +39,15 @@
     
     UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveNewItem)];
     UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
+    UIBarButtonItem *title = [[UIBarButtonItem alloc] initWithTitle:self.title
+                                                              style:UIBarButtonItemStylePlain
+                                                             target:self
+                                                             action:NULL];
     UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                           target:nil action:NULL];
+                                                                           target:self
+                                                                           action:NULL];
     
-    [toolbar setItems:[NSArray arrayWithObjects:cancelItem, space, addItem, nil]];
+    [toolbar setItems:[NSArray arrayWithObjects:cancelItem, space, title, space, addItem, nil]];
     [self.view addSubview:toolbar];
     
     self.titleTextView = [[UITextField alloc] initWithFrame:CGRectMake(50, 50, self.view.frame.size.width - 100, 50)];
