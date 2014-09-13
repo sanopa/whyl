@@ -41,7 +41,15 @@
     self.tableView.delegate = self;
     self.tableView.scrollEnabled = NO;
     [self.tableView registerClass:[YOHLearnTableViewCell class] forCellReuseIdentifier:@"YOHLearnTableViewCell"];
+
+    UILabel *footerText = [[UILabel alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 14.0, self.tableView.frame.size.width, 14.0)];
+    footerText.text = @"Content provided by the Reddit API.";
+    footerText.textAlignment = NSTextAlignmentCenter;
+    footerText.font = [UIFont fontWithName:@"Kailasa" size:13.0];
+    footerText.textColor = [UIColor lightGrayColor];
+    
     [self.view addSubview:self.tableView];
+    [self.view addSubview:footerText];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

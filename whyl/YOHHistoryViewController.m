@@ -121,12 +121,8 @@
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
     [dateFormatter setDoesRelativeDateFormatting:YES];
     cell.date.text = [dateFormatter stringFromDate:createdDate];
-    cell.specialText.text = indexPath.row == 0 ? @"Reminder: you recently learned" : @"";
+    cell.specialText.text = indexPath.row == 0 ? @"BLAST FROM THE PAST" : @"";
     
-    cell.title.font = [UIFont fontWithName:@"Kailasa-Bold" size:16.0];
-    cell.description.font = [UIFont fontWithName:@"Kailasa" size:16.0];
-    cell.date.font = [UIFont fontWithName:@"Kailasa" size:16.0];
-    cell.specialText.font = [UIFont fontWithName:@"Kailasa" size:14.0];
     cell.backgroundColor = indexPath.row == 0 ?[UIColor colorWithRed:235/255.0 green:235/255.0 blue:240/255.0 alpha:1.0]
     : [UIColor whiteColor];
     return cell;
@@ -134,6 +130,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     YOHAddViewController *addViewController = [[YOHAddViewController alloc] init];
     NSDictionary *item;
     if (indexPath.row > 0)
@@ -164,7 +161,7 @@
         [self.searchBar removeFromSuperview];
         self.searchBar = nil;
         self.tableView.frame = CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height);
-        self.items = self.allItems;
+        self.items = self.allItems ? self.allItems : self.items;
         [self.tableView reloadData];
     }
 }
