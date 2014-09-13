@@ -10,6 +10,7 @@
 #import "YOHLearnTableViewCell.h"
 #import "YOHPostViewController.h"
 #import "YOHAddViewController.h"
+#import "YOHPreviewViewController.h"
 
 @interface YOHLearnViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -77,10 +78,14 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    YOHPostViewController *postViewController = [[YOHPostViewController alloc] init];
+//    YOHPostViewController *postViewController = [[YOHPostViewController alloc] init];
     self.viewed[indexPath.row] = true;
-    postViewController.url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.reddit.com%@",self.posts[indexPath.row][@"permalink"]]];
-    [self.navigationController pushViewController:postViewController animated:YES];
+//    postViewController.url = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.reddit.com%@",self.posts[indexPath.row][@"permalink"]]];
+//    [self.navigationController pushViewController:postViewController animated:YES];
+    YOHPreviewViewController *previewViewController = [[YOHPreviewViewController alloc] init];
+    previewViewController.objectDict = self.posts[indexPath.row];
+    [self.navigationController pushViewController:previewViewController animated:YES];
+    NSLog(@"%@", self.posts[indexPath.row]);
     [tableView reloadData];
 }
 

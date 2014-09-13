@@ -38,6 +38,7 @@
 		EBA29A3519C3F7F40027572F /* YOHHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EBA29A3419C3F7F40027572F /* YOHHistoryTableViewCell.m */; };
 		F503FA9D19C416630017F013 /* YOHSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F503FA9C19C416630017F013 /* YOHSettingsTableViewController.m */; };
 		F519D4E419C3E38800B6E296 /* YOHLearnTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F519D4E319C3E38800B6E296 /* YOHLearnTableViewCell.m */; };
+		F520018019C4762F009D041A /* YOHPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F520017F19C4762F009D041A /* YOHPreviewViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,8 @@
 		F503FA9C19C416630017F013 /* YOHSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YOHSettingsTableViewController.m; sourceTree = "<group>"; };
 		F519D4E219C3E38800B6E296 /* YOHLearnTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YOHLearnTableViewCell.h; sourceTree = "<group>"; };
 		F519D4E319C3E38800B6E296 /* YOHLearnTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YOHLearnTableViewCell.m; sourceTree = "<group>"; };
+		F520017E19C4762F009D041A /* YOHPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YOHPreviewViewController.h; sourceTree = "<group>"; };
+		F520017F19C4762F009D041A /* YOHPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YOHPreviewViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +186,8 @@
 				EBA29A1219C3D4C70027572F /* YOHAddViewController.m */,
 				EBA29A1419C3D4D00027572F /* YOHLearnViewController.h */,
 				EBA29A1519C3D4D00027572F /* YOHLearnViewController.m */,
+				F520017E19C4762F009D041A /* YOHPreviewViewController.h */,
+				F520017F19C4762F009D041A /* YOHPreviewViewController.m */,
 				F503FA9B19C416630017F013 /* YOHSettingsTableViewController.h */,
 				F503FA9C19C416630017F013 /* YOHSettingsTableViewController.m */,
 				F519D4E219C3E38800B6E296 /* YOHLearnTableViewCell.h */,
@@ -330,6 +335,7 @@
 				EBA29A1C19C3D5110027572F /* YOHPostViewController.m in Sources */,
 				EBA29A1319C3D4C70027572F /* YOHAddViewController.m in Sources */,
 				EBA29A1619C3D4D00027572F /* YOHLearnViewController.m in Sources */,
+				F520018019C4762F009D041A /* YOHPreviewViewController.m in Sources */,
 				EBA299F019C3D1BE0027572F /* YOHAppDelegate.m in Sources */,
 				EBA29A1919C3D4E40027572F /* YOHHistoryViewController.m in Sources */,
 				EBA29A1019C3D4B50027572F /* YOHMainViewController.m in Sources */,
