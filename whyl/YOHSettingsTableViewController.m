@@ -32,6 +32,7 @@
         timeFormatter.timeZone = [NSTimeZone defaultTimeZone];
         timeFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
         _timeFormatter = timeFormatter;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return self;
 }
