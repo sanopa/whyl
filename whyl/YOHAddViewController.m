@@ -9,7 +9,7 @@
 #import "YOHAddViewController.h"
 
 #import "YOHHistoryViewController.h"
-
+#import "YOHLearnViewController.h"
 #import <Parse/Parse.h>
 
 @interface YOHAddViewController () <UITextViewDelegate>
@@ -128,15 +128,23 @@ static NSString *placeholderLink = @"attach a link";
             newItem[@"username"] = currentUser.username;
             
             [newItem saveInBackground];
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            dateFormatter.dateFormat = @"MM/dd/yyyy";
+            dateFormatter.timeZone = [NSTimeZone defaultTimeZone];
+            dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
+            [[NSUserDefaults standardUserDefaults] setValue:[dateFormatter stringFromDate:[NSDate date]] forKey:@"lastDateLearned"];
+                
         }
     }
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"MM/dd/yyyy";
-    dateFormatter.timeZone = [NSTimeZone defaultTimeZone];
-    dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
-    [[NSUserDefaults standardUserDefaults] setValue:[dateFormatter stringFromDate:[NSDate date]] forKey:@"lastDateLearned"];
-    [self dismissViewControllerAnimated:YES
-                             completion:NULL];
+    
+    if ([((UINavigationController *)self.presentingViewController).topViewController isKindOfClass:[YOHLearnViewController class]]) {
+        UINavigationController *navvc = (UINavigationController *)self.presentingViewController;
+        [self dismissViewControllerAnimated:NO completion:^(void){
+            [navvc popViewControllerAnimated:YES];
+        }];
+    } else {
+        [self dismissViewControllerAnimated:NO completion:NULL];
+    }
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
@@ -169,6 +177,7 @@ static NSString *placeholderLink = @"attach a link";
 #pragma mark - Dealing with Cancel Button
 - (void)cancel
 {
+    
     [self dismissViewControllerAnimated:YES
                              completion:NULL];
 }
