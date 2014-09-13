@@ -35,6 +35,7 @@
 		EBA29A2E19C3D83E0027572F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA29A2D19C3D83E0027572F /* Security.framework */; };
 		EBA29A3019C3D8440027572F /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA29A2F19C3D8440027572F /* StoreKit.framework */; };
 		EBA29A3219C3D84A0027572F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA29A3119C3D84A0027572F /* SystemConfiguration.framework */; };
+		EBA29A3519C3F7F40027572F /* YOHHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EBA29A3419C3F7F40027572F /* YOHHistoryTableViewCell.m */; };
 		F519D4E419C3E38800B6E296 /* YOHLearnTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F519D4E319C3E38800B6E296 /* YOHLearnTableViewCell.m */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +87,8 @@
 		EBA29A2D19C3D83E0027572F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		EBA29A2F19C3D8440027572F /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		EBA29A3119C3D84A0027572F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		EBA29A3319C3F7F40027572F /* YOHHistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YOHHistoryTableViewCell.h; sourceTree = "<group>"; };
+		EBA29A3419C3F7F40027572F /* YOHHistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YOHHistoryTableViewCell.m; sourceTree = "<group>"; };
 		F519D4E219C3E38800B6E296 /* YOHLearnTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YOHLearnTableViewCell.h; sourceTree = "<group>"; };
 		F519D4E319C3E38800B6E296 /* YOHLearnTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YOHLearnTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -181,6 +184,8 @@
 				F519D4E319C3E38800B6E296 /* YOHLearnTableViewCell.m */,
 				EBA29A1719C3D4E40027572F /* YOHHistoryViewController.h */,
 				EBA29A1819C3D4E40027572F /* YOHHistoryViewController.m */,
+				EBA29A3319C3F7F40027572F /* YOHHistoryTableViewCell.h */,
+				EBA29A3419C3F7F40027572F /* YOHHistoryTableViewCell.m */,
 				EBA29A1A19C3D5110027572F /* YOHPostViewController.h */,
 				EBA29A1B19C3D5110027572F /* YOHPostViewController.m */,
 				EBA299F119C3D1BE0027572F /* Images.xcassets */,
@@ -314,6 +319,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBA29A3519C3F7F40027572F /* YOHHistoryTableViewCell.m in Sources */,
 				EBA299EC19C3D1BE0027572F /* main.m in Sources */,
 				EBA29A1C19C3D5110027572F /* YOHPostViewController.m in Sources */,
 				EBA29A1319C3D4C70027572F /* YOHAddViewController.m in Sources */,
