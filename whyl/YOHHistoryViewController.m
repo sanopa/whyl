@@ -130,6 +130,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     YOHAddViewController *addViewController = [[YOHAddViewController alloc] init];
     NSDictionary *item;
     if (indexPath.row > 0)
@@ -160,7 +161,7 @@
         [self.searchBar removeFromSuperview];
         self.searchBar = nil;
         self.tableView.frame = CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height);
-        self.items = self.allItems;
+        self.items = self.allItems ? self.allItems : self.items;
         [self.tableView reloadData];
     }
 }

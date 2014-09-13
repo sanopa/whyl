@@ -19,6 +19,9 @@
 @end
 
 @implementation YOHAddViewController
+static NSString *placeholderTitle = @"what did you learn today?";
+static NSString *placeholderDesc = @"add a bit more elaboration";
+static NSString *placeholderLink = @"attach a link";
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -55,21 +58,21 @@
     [self.view addSubview:toolbar];
     
     self.titleTextView = [[UITextView alloc] initWithFrame:CGRectMake(20, 64, self.view.frame.size.width - 40, 50)];
-    self.titleTextView.text = @"what did you learn today?";
+    self.titleTextView.text = placeholderTitle;
     self.titleTextView.textColor = [UIColor lightGrayColor];
     self.titleTextView.font = [UIFont fontWithName:@"Kailasa-Bold" size:18.0];
     self.titleTextView.delegate = self;
     [self.view addSubview:self.titleTextView];
     
-    self.descriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(self.titleTextView.frame.origin.x, self.titleTextView.frame.size.height + self.titleTextView.frame.origin.y + 10, self.titleTextView.frame.size.width, 100)];
-    self.descriptionTextView.text = @"add a bit more elaboration";
+    self.descriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(self.titleTextView.frame.origin.x, self.titleTextView.frame.size.height + self.titleTextView.frame.origin.y + 10, self.titleTextView.frame.size.width, 150)];
+    self.descriptionTextView.text = placeholderDesc;
     self.descriptionTextView.textColor = [UIColor lightGrayColor];
     self.descriptionTextView.font = [UIFont fontWithName:@"Kailasa" size:18.0];
     self.descriptionTextView.delegate = self;
     [self.view addSubview:self.descriptionTextView];
     
     self.linkTextView = [[UITextView alloc] initWithFrame:CGRectMake(self.titleTextView.frame.origin.x, self.descriptionTextView.frame.origin.y + self.descriptionTextView.frame.size.height + 10, self.titleTextView.frame.size.width, 50)];
-    self.linkTextView.text = @"attach a link";
+    self.linkTextView.text = placeholderLink;
     self.linkTextView.textColor = [UIColor lightGrayColor];
     self.linkTextView.font = [UIFont fontWithName:@"Kailasa" size:18.0];
     self.linkTextView.delegate = self;
@@ -80,9 +83,12 @@
 {
     [super viewWillAppear:animated];
     self.titleTextView.text = self.itemTitle ? self.itemTitle :  self.titleTextView.text;
+    if (![self.titleTextView.text isEqualToString:placeholderTitle]) self.titleTextView.textColor = [UIColor blackColor];
     self.titleTextView.hidden = NO;
     self.descriptionTextView.text = self.description ? self.description : self.descriptionTextView.text;
+    if (![self.descriptionTextView.text isEqualToString:placeholderDesc]) self.descriptionTextView.textColor = [UIColor blackColor];
     self.linkTextView.text = self.link ? self.link : self.linkTextView.text;
+    if (![self.linkTextView.text isEqualToString:placeholderLink]) self.linkTextView.textColor = [UIColor blackColor];
 }
 
 #pragma mark - Updating Info in TextFields
@@ -127,6 +133,29 @@
     [[NSUserDefaults standardUserDefaults] setValue:[dateFormatter stringFromDate:[NSDate date]] forKey:@"lastDateLearned"];
     [self dismissViewControllerAnimated:YES
                              completion:NULL];
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    if ([textView.text isEqualToString:placeholderTitle]
+        || [textView.text isEqualToString:placeholderDesc]
+        || [textView.text isEqualToString:placeholderLink])
+        textView.text = @"";
+    textView.textColor = [UIColor blackColor];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    if ([textView.text isEqualToString:@""]) {
+        if (textView == self.titleTextView)
+            self.titleTextView.text = placeholderTitle;
+        if (textView == self.descriptionTextView)
+            self.descriptionTextView.text = placeholderDesc;
+        if (textView == self.linkTextView)
+            self.linkTextView.text = placeholderLink;
+        textView.textColor = [UIColor lightGrayColor];
+    }
+        
 }
 
 #pragma mark - Dealing with Cancel Button
