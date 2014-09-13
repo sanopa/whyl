@@ -31,7 +31,6 @@
         [self.contentView addSubview:self.date];
         
         self.specialText = [[UILabel alloc] initWithFrame:CGRectMake(8, 0, self.contentView.frame.size.width, 15)];
-        self.specialText.font = [UIFont fontWithName:@"Arial" size:14.0];
         [self.contentView addSubview:self.specialText];
     }
     return self;

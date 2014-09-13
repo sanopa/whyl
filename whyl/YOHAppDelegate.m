@@ -28,7 +28,9 @@
     YOHMainViewController *mainvc = [YOHMainViewController new];
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:mainvc];
     ((UINavigationController *)self.window.rootViewController).navigationBarHidden = true;
-    ((UINavigationController *)self.window.rootViewController).navigationBar.tintColor = [UIColor blackColor];
+    ((UINavigationController *)self.window.rootViewController).navigationBar.tintColor = [UIColor colorWithRed:247/255.0 green:141/255.0 blue:3/255.0 alpha:1.0];
+    ((UINavigationController *)self.window.rootViewController).navigationBar.barTintColor = [UIColor blackColor];
+    [((UINavigationController *)self.window.rootViewController).navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:247/255.0 green:141/255.0 blue:3/255.0 alpha:1.0]}];
     
     NSDictionary *localNotification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
     if (localNotification) {

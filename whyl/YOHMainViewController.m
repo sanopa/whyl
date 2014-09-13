@@ -29,6 +29,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:247/255.0 green:141/255.0 blue:3/255.0 alpha:1.0];
         PFUser *currentUser = [PFUser currentUser];
         [[NSUserDefaults standardUserDefaults]setValue:nil forKey:@"lastDateLearned"];
         if (!currentUser) {
