@@ -23,10 +23,17 @@
     return self;
 }
 
+-(void) loadView
+{
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    webView.scalesPageToFit = YES;
+    self.view = webView;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [((UIWebView *)self.view) loadRequest:[NSURLRequest requestWithURL:self.url]];
 }
 
 - (void)didReceiveMemoryWarning
