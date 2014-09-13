@@ -15,9 +15,9 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        self.addToHistoryButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
-        self.addToHistoryButton.frame = CGRectMake(8, 150/2-self.addToHistoryButton.frame.size.height/2, self.addToHistoryButton.frame.size.width, self.addToHistoryButton.frame.size.height);
-        [self.contentView addSubview:self.addToHistoryButton];
+        self.addToHistoryButton = [[UIButton alloc] initWithFrame:CGRectMake(8, 65, 20, 20)];
+        [self.addToHistoryButton setImage:[UIImage imageNamed:@"add-main"] forState:UIControlStateNormal];
+        [self addSubview:self.addToHistoryButton];
         self.addToHistoryButton.hidden = YES;
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(38, 8, [UIScreen mainScreen].bounds.size.width - 8 - 30 - 8 - 8, 134)];
         self.titleLabel.textColor = [UIColor blackColor];

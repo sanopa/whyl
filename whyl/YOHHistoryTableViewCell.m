@@ -15,17 +15,17 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        self.title = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 200, 25)];
+        self.title = [[UILabel alloc] initWithFrame:CGRectMake(8, 5, 200, 50)];
         self.title.lineBreakMode = NSLineBreakByWordWrapping;
         self.title.numberOfLines = 0;
         [self.contentView addSubview:self.title];
         
-        self.description = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, 200, 70)];
+        self.description = [[UILabel alloc] initWithFrame:CGRectMake(8, 30, [UIScreen mainScreen].bounds.size.width, 70)];
         self.description.lineBreakMode = NSLineBreakByWordWrapping;
         self.description.numberOfLines = 0;
         [self.contentView addSubview:self.description];
         
-        self.date = [[UILabel alloc] initWithFrame:CGRectMake(150, 5, 100, 30)];
+        self.date = [[UILabel alloc] initWithFrame:CGRectMake(220, 5, 100, 50)];
         self.date.lineBreakMode = NSLineBreakByWordWrapping;
         self.date.numberOfLines = 0;
         [self.contentView addSubview:self.date];

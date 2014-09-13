@@ -16,7 +16,7 @@
 #import <Parse/Parse.h>
 
 @interface YOHMainViewController () <UIAlertViewDelegate>
-@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UIImageView *titleLabel;
 @property (nonatomic, strong) UIButton *addButton;
 @property (nonatomic, strong) UIButton *historyButton;
 @property (nonatomic, strong) UIButton *redditButton;
@@ -119,7 +119,6 @@
 {
     UIViewController *addViewController = [[YOHAddViewController alloc] init];
     addViewController.title = @"Add";
-    self.navigationController.navigationBarHidden = false;
     [self presentViewController:addViewController
                        animated:YES
                      completion:NULL];
