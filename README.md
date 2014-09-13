@@ -10,3 +10,10 @@ whyl
 
 by: Sophia Anopa (sanopa) & Ruoxi Tan (shangtee)
 at: HackCMU, September 12-13, 2014
+
+
+
+screenshots
+===
+Here is the github wiki page with screenshots for a rough layout of the whyl experience. 
+https://github.com/sanopa/whyl/wiki/Screenshot-Page
