@@ -16,9 +16,6 @@
 @property (nonatomic, strong) UITextField *titleTextView;
 @property (nonatomic, strong) UITextField *descriptionTextView;
 @property (nonatomic, strong) UITextField *linkTextView;
-@property (nonatomic, strong) UIImageView *imageView;
-
-@property (nonatomic, strong) UIImage *image;
 @end
 
 @implementation YOHAddViewController
@@ -52,23 +49,20 @@
     toolbar.tintColor = [UIColor blackColor];
     [self.view addSubview:toolbar];
     
-    self.titleTextView = [[UITextField alloc] initWithFrame:CGRectMake(50, 50, self.view.frame.size.width - 100, 50)];
-    self.titleTextView.placeholder = @"Put in your title here";
+    self.titleTextView = [[UITextField alloc] initWithFrame:CGRectMake(20, 60, self.view.frame.size.width - 40, 50)];
+    self.titleTextView.placeholder = @"what did you learn today?";
     self.titleTextView.delegate = self;
     [self.view addSubview:self.titleTextView];
     
-    self.descriptionTextView = [[UITextField alloc] initWithFrame:CGRectMake(50, 100, self.view.frame.size.width - 100, 100)];
-    self.descriptionTextView.placeholder = @"Add some more thoughts";
+    self.descriptionTextView = [[UITextField alloc] initWithFrame:CGRectMake(self.titleTextView.frame.origin.x, self.titleTextView.frame.size.height + self.titleTextView.frame.origin.y + 10, self.titleTextView.frame.size.width, 100)];
+    self.descriptionTextView.placeholder = @"add a bit more elaboration";
     self.descriptionTextView.delegate = self;
     [self.view addSubview:self.descriptionTextView];
     
-    self.linkTextView = [[UITextField alloc] initWithFrame:CGRectMake(50, 200, self.view.frame.size.width - 100, 50)];
-    self.linkTextView.placeholder = @"Put in a link";
+    self.linkTextView = [[UITextField alloc] initWithFrame:CGRectMake(self.titleTextView.frame.origin.x, self.descriptionTextView.frame.origin.y + self.descriptionTextView.frame.size.height + 10, self.titleTextView.frame.size.width, 50)];
+    self.linkTextView.placeholder = @"attach a link";
     self.linkTextView.delegate = self;
     [self.view addSubview:self.linkTextView];
-    
-    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(50, 300, self.view.frame.size.width - 100, 100)];
-    [self.view addSubview:self.imageView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -91,8 +85,6 @@
     self.itemTitle = self.titleTextView.text;
     self.description = self.descriptionTextView.text;
     self.link = self.linkTextView.text;
-    self.image = self.imageView.image;
-
     if (self.objectId) {
         PFQuery *query = [PFQuery queryWithClassName:@"Item"];
         [query getObjectInBackgroundWithId:self.objectId block:^(PFObject *object, NSError *error) {
@@ -100,7 +92,6 @@
                 object[@"title"] = self.itemTitle ? self.itemTitle : [NSNull null];
                 object[@"description"] = self.description ? self.description : [NSNull null];
                 object[@"link"] = self.link ? self.link : [NSNull null];
-                object[@"photo"] = self.image ? UIImagePNGRepresentation(self.image) : [NSNull null];
                 [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (!error) {
                         [(YOHHistoryViewController *)self.presentingViewController viewWillAppear:YES];
@@ -114,7 +105,6 @@
         newItem[@"title"] = self.itemTitle ? self.itemTitle : [NSNull null];
         newItem[@"description"] = self.description ? self.description : [NSNull null];
         newItem[@"link"] = self.link ? self.link : [NSNull null];
-        newItem[@"photo"] = self.image ? UIImagePNGRepresentation(self.image) : [NSNull null];
         newItem[@"username"] = currentUser.username;
         
         [newItem saveInBackground];

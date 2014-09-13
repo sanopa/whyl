@@ -90,6 +90,7 @@
     YOHAddViewController *addViewController = [[YOHAddViewController alloc] init];
     addViewController.description = self.posts[index][@"title"];
     addViewController.link = [NSString stringWithFormat:@"http://www.reddit.com%@",self.posts[index][@"permalink"]];
+    addViewController.title = @"Add";
     [self presentViewController:addViewController animated:YES completion:nil];
     
 }

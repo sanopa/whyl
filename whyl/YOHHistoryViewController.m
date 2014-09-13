@@ -16,6 +16,8 @@
 @interface YOHHistoryViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *items;
+@property (nonatomic, strong) NSArray *allItems;
+@property (nonatomic, strong) NSArray *searchResults;
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) NSTimer *searchDelay;
 @end
@@ -55,6 +57,7 @@
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
                 NSLog(@"%@", objects);
+                self.allItems = objects;
                 self.items = objects;
                 [self.tableView reloadData];
             } else {
@@ -77,6 +80,7 @@
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
                 NSLog(@"%@", objects);
+                self.searchResults = objects;
                 self.items = objects;
                 [self.tableView reloadData];
             } else {
@@ -103,7 +107,12 @@
     NSDictionary *item = self.items[indexPath.row];
     cell.title.text = item[@"title"];
     cell.description.text = item[@"description"];
-    cell.date.text = [((PFObject *)item).createdAt description];
+    NSDate *createdDate = ((PFObject *)item).createdAt;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    [dateFormatter setDoesRelativeDateFormatting:YES];
+    cell.date.text = [dateFormatter stringFromDate:createdDate];
     return cell;
 }
 
@@ -126,6 +135,7 @@
 {
     if (!self.searchBar) {
         self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 44)];
+        self.searchBar.showsCancelButton = YES;
         self.tableView.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 44);
         [self.view addSubview:self.searchBar];
         self.searchBar.delegate = self;
@@ -133,6 +143,8 @@
         [self.searchBar removeFromSuperview];
         self.searchBar = nil;
         self.tableView.frame = CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height);
+        self.items = self.allItems;
+        [self.tableView reloadData];
     }
 }
 
@@ -140,6 +152,11 @@
 {
     [self.searchDelay invalidate];
     self.searchDelay = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(displaySearch) userInfo:nil repeats:NO];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [self searchHistory];
 }
 
 -(void)displaySearch
@@ -151,6 +168,7 @@
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
                 NSLog(@"%@", objects);
+                self.allItems = objects;
                 self.items = objects;
                 [self.tableView reloadData];
             } else {
@@ -172,6 +190,7 @@
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
                 NSLog(@"%@", objects);
+                self.searchResults = objects;
                 self.items = objects;
                 [self.tableView reloadData];
             } else {
