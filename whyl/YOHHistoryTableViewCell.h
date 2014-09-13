@@ -11,7 +11,7 @@
 @interface YOHHistoryTableViewCell : UITableViewCell
 @property (nonatomic, strong) UILabel *title;
 @property (nonatomic, strong) UILabel *description;
-@property (nonatomic, strong) NSDate *dateSaved;
 @property (nonatomic, strong) NSString *link;
 @property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) UILabel *date;
 @end

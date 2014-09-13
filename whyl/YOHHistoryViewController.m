@@ -23,6 +23,17 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        PFQuery *query = [PFQuery queryWithClassName:@"Item"];
+        [query whereKey:@"username" equalTo:[PFUser currentUser].username];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error) {
+                NSLog(@"%@", objects);
+                self.items = objects;
+                [self.tableView reloadData];
+            } else {
+                NSLog(@"Fetching items failed");
+            }
+        }];
     }
     return self;
 }
@@ -45,13 +56,16 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 40;
+    return 100;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"YOHHistoryTableViewCell"];
+    YOHHistoryTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"YOHHistoryTableViewCell"];
     NSDictionary *item = self.items[[indexPath indexAtPosition:0]];
+    cell.title.text = item[@"title"];
+    cell.description.text = item[@"description"];
+    cell.date.text = [((PFObject *)item).updatedAt description];
     return cell;
 }
 
