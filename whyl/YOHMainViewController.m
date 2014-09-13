@@ -37,7 +37,6 @@
                 }
             }];
         }
-        self.navigationController.delegate = self;
         
     }
     return self;
@@ -45,7 +44,7 @@
 
 - (void)loadView
 {
-    self.view = [[UIView alloc] init];
+    self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     // S: initializing buttons and title
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 50, 100, 50)];
